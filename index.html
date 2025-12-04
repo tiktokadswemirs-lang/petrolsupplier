@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BASH EMIR — международный трейдер и поставщик дизельного топлива , бензинов, битума мазута и нефтяного кокса. Поставки в СНГ, Азию и Ближний Восток.">
+	<meta property="og:title" content="BASH EMIR - Международный Трейдер Нефти, Нефтепродуктов.">
+	<meta property="og:description" content="BASH EMIR — международный трейдер и поставщик дизельного топлива, бензинов, битума мазута и нефтяного кокса.">
+    <title>BASH EMIR - Международный Трейдер Нефти, Нефтепродуктов.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="icon" type="image/x-icon" href="/assets/photos/logo.ico">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="/assets/photos/logo.png" alt="BASH EMIR Logo" class="logo-img">
+                    <span class="logo-text">BASH EMIR</span>
+                </div>
+
+                <nav class="nav-desktop">
+                    <button class="nav-link" data-translate="catalog" onclick="scrollToSection('catalog')">Каталог</button>
+                    <button class="nav-link" data-translate="logistics" onclick="scrollToSection('logistics')">Логистика</button>
+                    <button class="nav-link" data-translate="about" onclick="scrollToSection('about')">О Нас</button>
+                    <button class="nav-link" data-translate="contacts" onclick="scrollToSection('contact')">Контакты</button>
+                </nav>
+
+                <div class="header-controls">
+                    <button class="search-btn" onclick="toggleSearch()">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                            <circle cx="8" cy="8" r="6"></circle>
+                            <path d="M12 12l4 4"></path>
+                        </svg>
+                    </button>
+                    <div class="lang-switcher">
+                        <button class="lang-btn active" data-lang="ru" onclick="switchLanguage('ru')">RU</button>
+                        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
+                        <button class="lang-btn" data-lang="ir" onclick="switchLanguage('ir')">IR</button>
+                        <button class="lang-btn" data-lang="tr" onclick="switchLanguage('tr')">TR</button>
+                    </div>
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+
+            <nav class="mobile-menu" id="mobileMenu">
+                <button class="nav-link" data-translate="catalog" onclick="scrollToSection('catalog'); toggleMobileMenu()">Каталог</button>
+                <button class="nav-link" data-translate="logistics" onclick="scrollToSection('logistics'); toggleMobileMenu()">Логистика</button>
+                <button class="nav-link" data-translate="about" onclick="scrollToSection('about'); toggleMobileMenu()">О компании</button>
+                <button class="nav-link" data-translate="contacts" onclick="scrollToSection('contact'); toggleMobileMenu()">Контакты</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <video autoplay muted loop playsinline preload="auto" id="hero-video">
+            <source src="/assets/videos/1111.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео тег.
+        </video>
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-overlay"></div>
+
+        <div class="trading-widget">
+            <div class="widget-item">
+                <span class="widget-label" id="oil-label">BRENT OIL</span>
+                <span class="widget-change" id="oil-change">...</span>
+            </div>
+            <div class="widget-price" id="oil-price">...</div>
+            <hr class="widget-divider">
+            
+            <div class="widget-item">
+                <span class="widget-label">NATURAL GAS</span>
+                <span class="widget-change" id="gas-change">...</span>
+            </div>
+            
+            <div class="widget-item">
+                <span class="widget-label">GOLD</span>
+                <span class="widget-change" id="gold-change">...</span>
+            </div>
+            
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title" data-translate="heroTitle">Нефтепродукты по всему миру</h1>
+                <p class="hero-subtitle" data-translate="heroSubtitle">Спотовые решения и долгосрочные контракты с прозрачным ценообразованием</p>
+                <button class="btn btn-primary" data-translate="learnMore" onclick="scrollToSection('about')">Узнайте о нас больше</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="aboutSectionTitle">О Нас</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p data-translate="aboutCompany1">Bash Emir — международная нефтетрейдинговая структура, осуществляющая торговлю нефтью, нефтепродуктами и СУГ.</p>
+                    <p data-translate="aboutCompany2">Наша компания осуществляет закупку и поставку широкого спектра нефтепродуктов на международном уровне. Мы работаем с надежными поставщиками в странах: Россия, Китай, Иран, Казахстан, Азербайджан, Туркменистан, Турция.</p>
+                </div>
+                <div class="about-logo">
+                    <div class="logo-large">
+                        <img src="/assets/photos/logo.png"  class="logo-img-large">
+                        <p style="font-size: 1.5rem; font-weight: 700; color: var(--accent-color); margin-top: 15px;">BASH EMIR</p>
+                        <p style="margin-top: 30px; font-size: 1rem; color: rgba(255, 255, 255, 0.7);" data-translate="commercialOffer">Коммерческое предложение</p>
+                        <button class="btn btn-document" onclick="downloadProducerDocument()" data-translate="openProducerDocument" style="margin-top: 15px; background: linear-gradient(135deg, var(--accent-color), #ffed4e); color: #0d1419; border: none; padding: 12px 28px; border-radius: 4px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); display: block; width: 100%;">Для Производителей</button>
+                        <button class="btn btn-document" onclick="downloadBuyerDocument()" data-translate="openBuyerDocument" style="margin-top: 10px; background: linear-gradient(135deg, var(--accent-color), #ffed4e); color: #0d1419; border: none; padding: 12px 28px; border-radius: 4px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); display: block; width: 100%;">Для Покупателей</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section directions-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="directionsTitle">Мы занимаемся развитием своей деятельности в двух основных направлениях:</h2>
+            <div class="directions-grid">
+                <div class="direction-card">
+                    <div class="direction-icon">🚂</div>
+                    <h3 data-translate="railTitle">Железнодорожные отгрузки нефтепродуктов вагон-цистернами</h3>
+                    <p><strong data-translate="deliveryTerms">Условия поставки:</strong> <span data-translate="railTerms">CPT, FCA, EXW</span></p>
+                    <p><strong data-translate="minBatch">Минимальная партия:</strong> <span data-translate="railMin">325 тонн - 5 вагонов</span></p>
+                </div>
+
+                <div class="direction-card">
+                    <div class="direction-icon">⛴️</div>
+                    <h3 data-translate="seaTitle">Морские отгрузки нефтепродуктов танкерными партиями</h3>
+                    <p><strong data-translate="deliveryTerms">Условия поставки:</strong> <span data-translate="seaTerms">FOB, CFR</span></p>
+                    <p><strong data-translate="minBatch">Минимальная партия:</strong> <span data-translate="seaMin">5000 тонн</span></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" class="section catalog-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="catalogTitle">Каталог нефтепродуктов</h2>
+            <div class="catalog-grid">
+                <div class="catalog-column">
+                    <div class="product-list">
+                        <div class="product-item">
+                            <h4 data-translate="gasoline">Автомобильные бензины</h4>
+                            <p data-translate="gasolineTypes">АИ-100, АИ-98, АИ-95, АИ-92, АИ-80</p>
+                        </div>
+                        <div class="product-item">
+                            <h4 data-translate="diesel">Дизельное топливо</h4>
+                            <p data-translate="dieselType">EURO 5</p>
+                        </div>
+                        <div class="product-item">
+                            <h4 data-translate="maslotype">Базовое Масло</h4>
+                            <p>SN-180, SN-350, SN-600</p>
+                        </div>
+                        <div class="product-item">
+                            <h4 data-translate="burovoy">Буровой Барит</h4>
+                            <p data-translate="plotnost">плотность 4.2 g/cm3</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="catalog-column">
+                    <div class="product-list">
+                        <div class="product-item">
+                            <h4 data-translate="bitumen">Битум нефтяной дорожный</h4>
+                            <p data-translate="bitumenDesc">Качественный битум для дорожного строительства</p>
+                        </div>
+                        <div class="product-item">
+                            <h4 data-translate="mazut">Мазут топочный</h4>
+                            <p data-translate="mazutTypes">М-40, M-100</p>
+                        </div>
+                        <div class="product-item">
+                            <a href="./koks" class="product-btn" data-translate="coke">Кокс нефтяной</a>
+                            <p data-translate="cokeDesc">GPC</p>
+                        </div> 
+						<div class="product-item">
+                            <a href="./documents" class="product-btn" data-translate="sera">Гранулированная cера</a><br>
+                            <p data-translate="">99.95</p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section partners-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="partnersTitle">Категории наших партнеров</h2>
+            <div class="partners-grid">
+                <div class="partner-card" style="animation-delay: 0.1s;">
+                    <div class="partner-icon">🏛️</div>
+                    <h3 data-translate="partnerGov">Государственные предприятия</h3>
+                </div>
+                <div class="partner-card" style="animation-delay: 0.2s;">
+                    <div class="partner-icon">🌾</div>
+                    <h3 data-translate="partnerAgro">Сельхозпредприятия</h3>
+                </div>
+                <div class="partner-card" style="animation-delay: 0.3s;">
+                    <div class="partner-icon">🏭</div>
+                    <h3 data-translate="partnerRefinery">Нефтеперерабатывающие заводы</h3>
+                </div>
+                <div class="partner-card" style="animation-delay: 0.4s;">
+                    <div class="partner-icon">🛣️</div>
+                    <h3 data-translate="partnerRoad">Дорожно-строительные компании</h3>
+                </div>
+                <div class="partner-card" style="animation-delay: 0.5s;">
+                    <div class="partner-icon">⛽</div>
+                    <h3 data-translate="partnerAzs">АЗС и нефтяные терминалы</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section global-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="globalTitle">Работаем по всему миру</h2>
+            <p class="section-text" data-translate="globalText">Мы ежедневно осуществляем торговые операции по поставкам нефтепродуктов в странах Средней, Южной и Восточной Азии, Восточной Европы, Северной и Восточной Африки и на Ближнем Востоке.</p>
+            <div class="global-highlight">
+                <p data-translate="globalHighlight1">🌍 Глобальное присутствие на ключевых рынках</p>
+                <p data-translate="globalHighlight2">Наша сеть охватывает все основные торговые маршруты и логистические центры мира</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="logistics" class="section logistics-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="logisticsSectionTitle">Логистика и качество</h2>
+            <div class="logistics-grid">
+                <div class="logistics-column">
+                    <h3 data-translate="logisticsSystem">Выстроенная система логистики</h3>
+                    <p data-translate="logisticsScience">Логистика нефтепродуктов — это целая наука, помогающая планировать, контролировать и оптимизировать процесс передачи товаров, от производителя к потребителю.</p>
+                    <p data-translate="logisticsBase">Логистика, хранение и дистрибуция важнейшая основа нашего бизнеса.</p>
+                </div>
+                <div class="logistics-column">
+                    <h3 data-translate="qualityStandards">Стандарты качества</h3>
+                    <p data-translate="qualityResp">Мы берем полную ответственность за качество наших услуг в соответствии с Международными стандартами</p>
+                    <div class="quality-box">
+                        <p><strong data-translate="isoCertified">ISO сертифицировано</strong></p>
+                        <p data-translate="isoDesc">Все операции соответствуют международным стандартам качества и безопасности</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cooperation-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="cooperationTitle">Как начать сотрудничество</h2>
+            <div class="steps-grid">
+                <div class="step-card" style="animation-delay: 0.1s;">
+                    <div class="step-number">1</div>
+                    <h4 data-translate="step1">Комплаенс</h4>
+                    <p data-translate="step1desc">Предоставление учредительных документов</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <h4 data-translate="step2">Согласование</h4>
+                    <p data-translate="step2desc">Ценового предложения</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.3s;">
+                    <div class="step-number">3</div>
+                    <h4 data-translate="step3">Реквизиты</h4>
+                    <p data-translate="step3desc">Получение реквизитной заявки</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.4s;">
+                    <div class="step-number">4</div>
+                    <h4 data-translate="step4">Контракт</h4>
+                    <p data-translate="step4desc">Подписание контракта и спецификаций</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.5s;">
+                    <div class="step-number">5</div>
+                    <h4 data-translate="step5">Оплата</h4>
+                    <p data-translate="step5desc">По выставленному инвойсу</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.6s;">
+                    <div class="step-number">6</div>
+                    <h4 data-translate="step6">Отгрузка</h4>
+                    <p data-translate="step6desc">Отгрузка продукции</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.7s;">
+                    <div class="step-number">7</div>
+                    <h4 data-translate="step7">Доставка</h4>
+                    <p data-translate="step7desc">Получение товара в пункте назначения</p>
+                </div>
+                <div class="step-card" style="animation-delay: 0.8s;">
+                    <div class="step-number">8</div>
+                    <h4 data-translate="step8">Закрытие</h4>
+                    <p data-translate="step8desc">Подписание закрывающих документов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="contactTitle">Связаться с нами</h2>
+            <div class="contact-grid">
+	                <div class="contact-form-wrapper">
+	                    <h3 data-translate="contactFormTitle">Свяжитесь с нами напрямую</h3>
+	                    <div class="contact-buttons">
+	                        <a href="https://wa.me/+99365616173" class="btn btn-whatsapp" data-translate="contactWhatsappButton">
+	                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.96c0 1.76.46 3.48 1.35 4.99l-1.4 5.14 5.32-1.37c1.45.79 3.08 1.21 4.63 1.21 5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm3.95 13.98c-.24.61-.84.82-1.45.58l-2.48-1.02c-.54-.22-1.15-.22-1.69 0l-2.48 1.02c-.61.24-1.21.03-1.45-.58-.24-.61-.03-1.21.58-1.45l2.48-1.02c.54-.22 1.15-.22 1.69 0l2.48 1.02c.61.24.82.84.58 1.45zM12.04 4c4.38 0 7.96 3.58 7.96 7.96 0 4.38-3.58 7.96-7.96 7.96-1.5 0-2.94-.42-4.18-1.21l-3.92.99 1.02-3.75c-.89-1.51-1.35-3.23-1.35-4.99C4.08 7.58 7.66 4 12.04 4zm2.8 10.42c-.18.45-.63.61-1.08.43l-2.08-.85c-.45-.18-.94-.18-1.39 0l-2.08.85c-.45.18-.9-.03-1.08-.48-.18-.45.03-.9.48-1.08l2.08-.85c.45-.18.94-.18 1.39 0l2.08.85c.45.18.61.63.43 1.08z"/></svg>
+	                            WhatsApp
+	                        </a>
+                            <a href="https://www.linkedin.com/in/%D0%B8%D1%81%D0%BB%D0%B0%D0%BC-%D0%B0%D0%B1%D0%B4%D1%83%D0%BB%D0%BB%D0%B0%D0%B5%D0%B2-b3a594242" class="btn btn-linkedin" data-translate="linkedinButton">
+	                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.96c0 1.76.46 3.48 1.35 4.99l-1.4 5.14 5.32-1.37c1.45.79 3.08 1.21 4.63 1.21 5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm3.95 13.98c-.24.61-.84.82-1.45.58l-2.48-1.02c-.54-.22-1.15-.22-1.69 0l-2.48 1.02c-.61.24-1.21.03-1.45-.58-.24-.61-.03-1.21.58-1.45l2.48-1.02c.54-.22 1.15-.22 1.69 0l2.48 1.02c.61.24.82.84.58 1.45zM12.04 4c4.38 0 7.96 3.58 7.96 7.96 0 4.38-3.58 7.96-7.96 7.96-1.5 0-2.94-.42-4.18-1.21l-3.92.99 1.02-3.75c-.89-1.51-1.35-3.23-1.35-4.99C4.08 7.58 7.66 4 12.04 4zm2.8 10.42c-.18.45-.63.61-1.08.43l-2.08-.85c-.45-.18-.94-.18-1.39 0l-2.08.85c-.45.18-.9-.03-1.08-.48-.18-.45.03-.9.48-1.08l2.08-.85c.45-.18.94-.18 1.39 0l2.08.85c.45.18.61.63.43 1.08z"/></svg>
+	                            LinkedIn
+	                        </a>
+	                    </div>
+	                </div>
+                <div class="contact-info">
+                    <h3 data-translate="contactInfo">Информация</h3>
+                    <p data-translate="contactDescription">Наши менеджеры исследуют Ваш вопрос, подготовят предложение и свяжутся с Вами в ближайшее время.</p>
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <div>
+                            <p><strong data-translate="email">Email</strong></p>
+                            <p>bashemir@petrolsupplier.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📞</span>
+                        <div>
+                            <p><strong data-translate="phone">Телефон</strong></p>
+                            <p>+993 65 616173</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column footer-about">
+                    <button data-translate="about" onclick="scrollToSection('about')">О Нас</button>
+                    
+                </div>
+                <div class="footer-column">
+                    <button data-translate="productsFooter" onclick="scrollToSection('catalog')">Продукты</button>
+                    
+                </div>
+                <div class="footer-column">
+                    <button data-translate="logisticsFooter" onclick="scrollToSection('logistics')">Логистика</button>
+                    
+                </div>
+                <div class="footer-column">
+                    <button  data-translate="contactsFooter" onclick="scrollToSection('contact')">Контакты</button>
+                    
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <p data-translate="kollep">© Copyright 2025   BASH EMIR<br>Международная энергетическая группа по торговле сырьевыми товарами</p>
+                <div class="social-links">
+                    <a href="https://wa.me/+99365616173">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
