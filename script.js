@@ -629,7 +629,7 @@ function downloadProducerDocument() {
     } else if (currentLanguage === "ir") {
         pdfFile = "proposal_persian.pdf";
     }
-    window.open("/" + pdfFile, "_blank");
+    window.open("/assets/pdf/" + pdfFile, "_blank");
 }
 
 function downloadBuyerDocument() {
@@ -641,6 +641,6 @@ function downloadBuyerDocument() {
     } else if (currentLanguage === "ir") {
         pdfFile = "proposal_klient_ir.pdf";
     }
-    window.open("/" + pdfFile, "_blank");
+    window.open("/assets/pdf/" + pdfFile, "_blank");
 }
 
