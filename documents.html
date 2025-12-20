@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/photos/favicon.png?v=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/photos/favicon.png?v=1.0">
+    <link rel="shortcut icon" type="image/png" href="/assets/photos/favicon.png?v=1.0">
+    <link rel="apple-touch-icon" href="/assets/photos/logo.png">
+    <meta name="msapplication-TileImage" content="/assets/photos/logo.png">
+    <meta name="description" content="Bash Emir Doc Sulfur - Документы Баш Эмира Серы">
+    <link rel="canonical" href="https://www.petrolsupplier.com/documents.html">
+    <link rel="stylesheet" href="style.css">
+    <title>Bash Emir Doc Sulfur</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* Для позиционирования контента поверх видео */
+            min-height: 100vh; /* Изменяем на min-height для прокрутки */
+            color: white;
+        }
+        /* Стили для фонового видео */
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100; /* Помещаем видео на задний план */
+            background-size: cover;
+            overflow: hidden;
+        }
+        /* Стили для контейнера контента */
+        .content {
+            /* Flexbox для центрирования контента */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            position: relative; /* Изменяем на relative для прокрутки */
+            width: 100%;
+            min-height: 100vh;
+            z-index: 1;
+            padding: 20px 0; /* Добавляем вертикальные отступы */
+            
+            /* Добавляем небольшой затемняющий оверлей на весь экран для контраста */
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        /* Стили для изображений */
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 120px;
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.7));
+        }
+
+        .passport-image {
+            max-width: 800px; /* Увеличим максимальную ширину для лучшего вида документа */
+            width: 90%;
+            height: auto;
+            margin: 40px 0; /* Добавляем отступы сверху и снизу */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8); /* Усилим тень для эффекта "плавающего" документа */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Фоновое видео -->
+    <video autoplay loop muted playsinline id="video-background">
+        <source src="/assets/videos/video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает тег video.
+    </video>
+
+    <!-- Контент поверх видео -->
+    <div class="content">
+
+        <!-- Логотип -->
+        <a href="./"><img src="/assets/photos/logo.png" alt="Логотип" class="logo"></a>
+
+        <!-- Изображение "paspoort.png" -->
+        <img id="passport-img" src="/assets/photos/passport.png" alt="Paspoort Document" class="passport-image">
+    </div>
+
+    <script>
+        function setImages() {
+            // 1. Получаем язык. Если не найден, ставим 'ru' как запасной вариант.
+            var lang = localStorage.getItem('language');
+            
+            // Если вы открыли файл напрямую (не через сервер), localStorage может быть пустым.
+            if (!lang) {
+                lang = 'ru';
+            }
+
+            // 2. Ссылка на картинку
+            var img = document.getElementById('passport-img');
+
+            // 3. Логика замены
+            var langSuffix = '';
+            if (lang === 'ru') {
+                langSuffix = '_ru';
+            } else if (lang === 'en') {
+                // Для английского используем файлы без суффикса (passport.png)
+                langSuffix = ''; 
+            } else if (lang === 'tr') {
+                langSuffix = '_tr';
+            } else if (lang === 'ir') {
+                langSuffix = '_ir';
+            }
+
+            // Устанавливаем изображение
+            // passport.png - это английская версия
+            // passport_ru.png - русская версия
+            // passport_tr.png - турецкая версия
+            // passport_ir.png - иранская версия
+            img.src = '/assets/photos/passport' + langSuffix + '.png';
+        }
+
+        // Запуск скрипта сразу, как только браузер прочитал тег script
+        setImages();
+
+        // И повторный запуск после полной загрузки страницы (на случай задержек)
+        window.onload = setImages;
+    </script>
+
+</body>
+</html>
+    </div>
+
+</body>
+</html>

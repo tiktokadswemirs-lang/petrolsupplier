@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /assets/videos/
+Disallow: /proxy.php
+Disallow: /script.js

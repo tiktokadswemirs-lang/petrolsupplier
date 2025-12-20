@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/photos/favicon.png?v=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/photos/favicon.png?v=1.0">
+    <link rel="shortcut icon" type="image/png" href="/assets/photos/favicon.png?v=1.0">
+    <link rel="apple-touch-icon" href="/assets/photos/logo.png">
+    <meta name="msapplication-TileImage" content="/assets/photos/logo.png">
+    <link rel="canonical" href="https://www.petrolsupplier.com/koks.html">
+    <link rel="stylesheet" href="style.css">
+    <title>Нефтяной кокс - Документы</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            color: white;
+        }
+        #background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+            /* corrected path to the image inside assets/photos */
+            background-image: url('/assets/photos/koks_fon.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none; /* allow clicks through the background */
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative; 
+            width: 100%;
+            min-height: 100vh;
+            z-index: 1;
+            padding: 20px 0; 
+            background-color: rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 120px;
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.7));
+        }
+        .passport-image {
+            max-width: 800px; 
+            width: 90%;
+            height: auto;
+            margin: 40px 0; 
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8); 
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #ffd700;
+            color: #0d1419;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .back-button:hover {
+            background-color: #ffed4e;
+            color: #0d1419;
+            transform: translateY(-2px);
+        }
+        
+        /* Временный стиль для отладки, если понадобится */
+        #debug-info {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed; top: 0; left: 0; background: red; color: white; padding: 10px; z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="background-image"></div>
+
+    <div class="content">
+        <a href="./"><img src="/assets/photos/logo.png" alt="Логотип" class="logo"></a>
+
+        <img id="koks-img-1" src="/assets/photos/koks.jpeg" alt="Паспорт на кокс 1" class="passport-image">
+        <img id="koks-img-2" src="/assets/photos/koks2.jpeg" alt="Паспорт на кокс 2" class="passport-image">
+        <img id="koks-img-3" src="/assets/photos/koks3.jpeg" alt="Паспорт на кокс 3" class="passport-image">
+    </div>
+
+    <script>
+        function setImages() {
+            // 1. Получаем язык. Если не найден, ставим 'ru' как запасной вариант.
+            var lang = localStorage.getItem('language');
+            
+            // Если вы открыли файл напрямую (не через сервер), localStorage может быть пустым.
+            if (!lang) {
+                lang = 'ru';
+            }
+
+            // 2. Ссылки на картинки
+            var img1 = document.getElementById('koks-img-1');
+            var img2 = document.getElementById('koks-img-2');
+            var img3 = document.getElementById('koks-img-3');
+
+            // 3. Логика замены
+            var langSuffix = '';
+            if (lang === 'ru') {
+                langSuffix = '_ru';
+            } else if (lang === 'en') {
+                // Для английского используем файлы без суффикса (koks.jpeg, koks2.jpeg, koks3.jpeg)
+                langSuffix = ''; 
+            } else if (lang === 'tr') {
+                langSuffix = '_tr';
+            } else if (lang === 'ir') {
+                langSuffix = '_ir';
+            }
+
+            // Устанавливаем изображения
+            // koks.jpeg, koks2.jpeg, koks3.jpeg - это английские версии
+            // koks_ru.jpeg, koks_ru2.jpeg, koks_ru3.jpeg - русские версии
+            // koks_tr.jpeg, koks_tr2.jpeg, koks_tr3.jpeg - турецкие версии
+            // koks_ir.jpeg, koks_ir2.jpeg, koks_ir3.jpeg - иранские версии
+            img1.src = '/assets/photos/koks' + langSuffix + '.jpeg';
+            img2.src = '/assets/photos/koks' + langSuffix + '2.jpeg';
+            img3.src = '/assets/photos/koks' + langSuffix + '3.jpeg';
+        }
+
+        // Запуск скрипта сразу, как только браузер прочитал тег script
+        setImages();
+
+        // И повторный запуск после полной загрузки страницы (на случай задержек)
+        window.onload = setImages;
+    </script>
+
+</body>
+</html>
