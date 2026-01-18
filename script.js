@@ -411,6 +411,7 @@ async function fetchCommodityPrices() {
                 "Content-Type": "application/json"
             }
         });
+        const jsonResponse = await response.json();
         const rawPrice = jsonResponse?.data?.price;
 
         if (typeof rawPrice === 'undefined' || rawPrice === null) {
