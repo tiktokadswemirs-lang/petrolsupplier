@@ -52,18 +52,18 @@ const translations = {
         openBuyerDocument: "Для Покупателей",
         aboutSectionTitle: "О Нас",
         aboutCompany1: "Мы оказываем брокерские и консультационные услуги в сфере международной торговли нефтепродуктами.",
-        aboutCompany2: "Наша задача - связать квалифицированных покупателей и потдвержденных продавцов, выстроить корректную процедуру сделки и прокантролировать документооборот в соответствии с международными нормами торговли и банковской практикой.",
+        aboutCompany2: "Наша задача - связать квалифицированных покупателей и подтвержденных продавцов, выстроить корректную процедуру сделки и проконтролировать документооборот в соответствии с международными нормами торговли и банковской практикой.",
         directionsTitle: "Роль Брокера:",
-        railTitle: "Роль брокера в реальной товарной сделке - это процедурный, документраный и комплаэнс-контроль, а не гарантия товара или денежных средств",
+        railTitle: "Роль брокера в реальной товарной сделке - это процедурный, документарный и комплаенс-контроль, а не гарантия товара или денежных средств",
         seaTitle: "Мы Обеспечиваем:",
         deliveryTerms: "Корректную и логичную последовательность сделки",
         railTerms: "Фильтрацию фиктивных продавцов и покупателей",
         seaTerms: "Проверку контрагентов (KYC / Due Diligence / AML)",
         minBatch: "Контроль правильности документов и процедур",
         railMin: "Защиту брокерского вознаграждения",
-        seaMin: "Соответсвие сделок нормам ICC и документарным правилам UCP 600",
+        seaMin: "Соответствие сделок нормам ICC и документарным правилам UCP 600",
         brokerguard: "Защита брокерского вознаграждения",
-        soprovojdenie: "В рамках сопровождения сделок применяется стандартная международная практика защиты посреднечиского вознагрождения:",
+        soprovojdenie: "В рамках сопровождения сделок применяется стандартная международная практика защиты посреднического вознаграждения:",
         kontraktstoron: "NCNDA (Non-Circumvention & Non-Disclosure Agreement) - Защита от обхода и несанкционированного контракта сторон",
         brokercomissi: "IMFPA / Fee Protection Agreement - Порядок, условия и сроки выплаты брокерской комиссии",
         comissibrokera: "Комиссия Брокера:",
@@ -220,8 +220,8 @@ const translations = {
         sera: "Granulated sulfur",
     },
     tr: {
-        catalog: "Katalog",
-        logistics: "Lojistik",
+    catalog: "Katalog",
+    logistics: "Lojistik",
         about: "Hakkımızda",
         contacts: "İletişim",
         heroTitle: "Dünya Çapında Petrol Ürünleri",
@@ -327,7 +327,10 @@ function switchLanguage(lang) {
     setTimeout(() => {
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
-            if (translations[lang][key]) el.innerHTML = translations[lang][key];
+                // Always clear previous text
+                let value = translations[lang][key];
+                if (!value) value = translations['ru'][key] || key;
+                el.innerHTML = value;
         });
         document.body.classList.remove('language-switching');
     }, 150);
@@ -408,10 +411,6 @@ async function fetchCommodityPrices() {
                 "Content-Type": "application/json"
             }
         });
-
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        const jsonResponse = await response.json();
         const rawPrice = jsonResponse?.data?.price;
 
         if (typeof rawPrice === 'undefined' || rawPrice === null) {
