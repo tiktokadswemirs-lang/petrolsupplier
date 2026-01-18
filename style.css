@@ -63,6 +63,20 @@ a {
     color: var(--accent-color);
     text-decoration: none;
     transition: color 0.3s ease;
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .lang-btn {
+            min-width: 48px;
+            font-size: 1rem;
+            padding: 6px 10px;
+            margin: 2px 0;
+        }
 }
 
 a:hover {
@@ -78,8 +92,153 @@ a:hover {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: inline-block;
 }
+
+/* Catalog Section Styling */
+.catalog-section ul {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    padding: 28px 32px 24px 32px;
+    margin-bottom: 24px;
+    list-style: none;
+}
+.catalog-section ul li {
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+}
+.catalog-section ul li:before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    top: 0;
+    line-height: 1.1;
+}
+.catalog-section h2, .catalog-section h3 {
+    color: var(--accent-color);
+    margin-bottom: 18px;
+    font-weight: 700;
+}
+.catalog-section h3 {
+    font-size: 1.25rem;
+    margin-top: 10px;
+}
+
+/* Responsive broker section */
+.directions-section .container {
+    width: 100%;
+    padding: 0 20px;
+}
+.broker-grid {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.broker-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    padding: 24px 24px 18px 24px;
+    margin-bottom: 24px;
+    flex: 1 1 320px;
+    min-width: 260px;
+}
+.broker-grid > div[style*="text-align: center"] {
+    flex: 0 0 320px;
+    max-width: 320px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.broker-grid img {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+    .broker-grid {
+        flex-direction: column;
+        gap: 0;
+    }
+    .broker-grid > div[style*="text-align: center"] {
+        max-width: 100%;
+        margin: 0 auto 24px auto;
+    }
+    .broker-card {
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 0 4px;
+    }
+    .catalog-section ul {
+        padding: 12px 4px 10px 4px;
+        font-size: 1rem;
+    }
+    .broker-grid {
+        flex-direction: column;
+        gap: 0;
+        align-items: stretch;
+    }
+    .broker-grid > div[style*="text-align: center"],
+    .broker-grid img {
+        max-width: 100%;
+        margin: 0 auto 16px auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+    .broker-card {
+        padding: 10px 4px 8px 4px;
+        margin-bottom: 12px;
+        font-size: 0.98rem;
+    }
+    h2 {
+        font-size: 1.15rem;
+    }
+    h3 {
+        font-size: 1rem;
+    }
+    h4 {
+        font-size: 0.95rem;
+    }
+    .directions-section .section-title {
+        font-size: 1.1rem;
+        margin-bottom: 18px;
+    }
+    .broker-card ul {
+        padding-left: 12px;
+    }
+    .broker-card ul li {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+    .broker-card h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .broker-card h4 {
+        margin-bottom: 8px;
+    }
+    .broker-card p {
+        margin-bottom: 8px;
+    }
+    .broker-grid > div[style*="text-align: center"] {
+        order: -1;
+        margin-bottom: 12px;
+    }
+}
+
 
 .btn-primary {
     background-color: var(--accent-red);
@@ -468,50 +627,6 @@ a:hover {
 /* DIRECTIONS SECTION */
 .directions-section {
     background-color: var(--bg-primary);
-}
-
-.directions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.direction-card {
-    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(52, 152, 219, 0.1));
-    border: 1px solid rgba(46, 204, 113, 0.3);
-    padding: 40px 30px;
-    border-radius: 8px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.direction-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
-}
-
-.direction-card:nth-child(2) {
-    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
-    border-color: rgba(52, 152, 219, 0.3);
-}
-
-.direction-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.direction-card h3 {
-    margin-bottom: 20px;
-    color: var(--text-primary);
-}
-
-.direction-card p {
-    color: var(--text-secondary);
-    margin-bottom: 10px;
 }
 
 /* CATALOG SECTION */
@@ -1145,5 +1260,40 @@ a.product-btn[href="koks.html"] {
     color: var(--text-secondary);
     font-size: 0.95rem;
     margin-top: 10px; /* Add space between button and text */
+}
+
+/* MOBILE BROKER SECTION OVERRIDES */
+@media (max-width: 600px) {
+     .broker-grid {
+          flex-direction: column;
+          gap: 0;
+          align-items: stretch;
+          width: 100%;
+     }
+     .broker-grid > div[style*="text-align: center"] {
+          order: -1;
+          margin-bottom: 18px;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+     }
+     .broker-grid img {
+          max-width: 220px;
+          width: 80vw;
+          margin: 0 auto 12px auto;
+          border-radius: 12px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+          display: block;
+     }
+     .broker-card {
+          padding: 14px 6px 14px 6px;
+          margin-bottom: 18px;
+          font-size: 1rem;
+          background: var(--bg-secondary);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+          border: 1px solid var(--accent-color);
+          width: 100%;
+          border-radius: 10px;
+     }
 }
 
