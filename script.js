@@ -187,7 +187,7 @@ const translations = {
         productsFooter: "Продукты",
         logisticsFooter: "Логистика",
         contactsFooter: "Контакты",
-        kollep: "© Copyright 2025 BASH EMIR<br>Международная энергетическая группа"
+        kollep: "© Copyright 2026 BASH EMIR<br>Международная энергетическая группа"
     },
 
     en: {
@@ -324,7 +324,7 @@ const translations = {
         productsFooter: "Products",
         logisticsFooter: "Logistics",
         contactsFooter: "Contacts",
-        kollep: "© Copyright 2025 BASH EMIR<br>International Energy Trading Group"
+        kollep: "© Copyright 2026 BASH EMIR<br>International Energy Trading Group"
     },
 
     tr: {
@@ -461,7 +461,7 @@ const translations = {
         productsFooter: "Ürünler",
         logisticsFooter: "Lojistik",
         contactsFooter: "İletişim",
-        kollep: "© Telif Hakkı 2025 BASH EMIR<br>Uluslararası Enerji Ticaret Grubu"
+        kollep: "© Telif Hakkı 2026 BASH EMIR<br>Uluslararası Enerji Ticaret Grubu"
     }
 };
 
