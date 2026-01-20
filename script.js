@@ -43,6 +43,7 @@ function scrollToSection(sectionId) {
 // ===========================
 
 const translations = {
+
     ru: {
         // HEADER / NAV
         catalog: "Каталог",
@@ -59,6 +60,12 @@ const translations = {
         aboutSectionTitle: "О Нас",
         aboutCompany1: "Мы оказываем брокерские и консультационные услуги в сфере международной торговли нефтепродуктами.",
         aboutCompany2: "Наша задача — связать квалифицированных покупателей и подтвержденных продавцов, выстроить корректную процедуру сделки и проконтролировать документооборот в соответствии с международными нормами торговли и банковской практикой.",
+        aboutNotTitle: "Мы не являемся:",
+        aboutNotSeller: "Продавцом или покупателем продукции",
+        aboutNotOwner: "Владельцем товара",
+        aboutNotOperator: "Оператором хранения или логистики",
+        aboutNotBank: "Финансовым учреждением",
+        aboutDirectOps: "Все финансовые и товарные операции осуществляются напрямую между сторонами через банки и в рамках применимого законодательства.",
 
         // TURKMENISTAN
         turkmenistanTitle: "Туркменистан и биржевая модель поставок",
@@ -190,6 +197,7 @@ const translations = {
         kollep: "© Copyright 2026 BASH EMIR<br>Международная энергетическая группа"
     },
 
+
     en: {
         catalog: "Catalog",
         logistics: "Logistics",
@@ -203,6 +211,12 @@ const translations = {
         aboutSectionTitle: "About Us",
         aboutCompany1: "We provide brokerage and consulting services in international petroleum trading.",
         aboutCompany2: "Our mission is to connect qualified buyers with verified sellers, establish correct transaction procedures, and control document flow in accordance with international trade standards.",
+        aboutNotTitle: "We are not:",
+        aboutNotSeller: "A seller or buyer of products",
+        aboutNotOwner: "A product owner",
+        aboutNotOperator: "A storage or logistics operator",
+        aboutNotBank: "A financial institution",
+        aboutDirectOps: "All financial and commodity operations are carried out directly between the parties through banks and within the framework of applicable law.",
 
         // TURKMENISTAN
         turkmenistanTitle: "Turkmenistan and the Exchange Model",
@@ -327,6 +341,7 @@ const translations = {
         kollep: "© Copyright 2026 BASH EMIR<br>International Energy Trading Group"
     },
 
+
     tr: {
         catalog: "Katalog",
         logistics: "Lojistik",
@@ -340,6 +355,12 @@ const translations = {
         aboutSectionTitle: "Hakkımızda",
         aboutCompany1: "Uluslararası petrol ticareti alanında aracılık ve danışmanlık hizmetleri sunuyoruz.",
         aboutCompany2: "Görevimiz, nitelikli alıcıları doğrulanmış satıcılarla buluşturmak, doğru işlem prosedürünü oluşturmak ve belge akışını uluslararası ticaret normlarına uygun olarak kontrol etmektir.",
+        aboutNotTitle: "Biz şunlar değiliz:",
+        aboutNotSeller: "Ürün satıcısı veya alıcısı",
+        aboutNotOwner: "Ürün sahibi",
+        aboutNotOperator: "Depolama veya lojistik operatörü",
+        aboutNotBank: "Finans kurumu",
+        aboutDirectOps: "Tüm finansal ve mal işlemleri, taraflar arasında doğrudan bankalar aracılığıyla ve yürürlükteki mevzuat çerçevesinde gerçekleştirilir.",
 
         // TURKMENISTAN
         turkmenistanTitle: "Türkmenistan ve Borsa Tedarik Modeli",
