@@ -1,4 +1,55 @@
 // ===========================
+// ANIMATION ON SCROLL FOR ALL SECTIONS
+// ===========================
+
+document.addEventListener("DOMContentLoaded", function () {
+    const animatedMap = [
+        { selector: '.section-title', anim: 'animate-slide-up' },
+        { selector: '.about-text', anim: 'animate-slide-left' },
+        { selector: '.about-logo', anim: 'animate-slide-right' },
+        { selector: '.broker-card', anim: 'animate-slide-up' },
+        { selector: '.partner-card', anim: 'animate-slide-up' },
+        { selector: '.step-card', anim: 'animate-slide-up' },
+        { selector: '.global-highlight', anim: 'animate-slide-left' },
+        { selector: '.logistics-column', anim: 'animate-slide-right' },
+        { selector: '.contact-grid', anim: 'animate-slide-up' },
+        { selector: '.section-text', anim: 'animate-slide-left' },
+        { selector: '.hero-content', anim: 'animate-slide-up' },
+        { selector: '.catalog-section ul', anim: 'animate-slide-up' },
+        { selector: '.direction-card', anim: 'animate-slide-up' },
+        { selector: '.quality-box', anim: 'animate-slide-up' },
+        { selector: '.info-item', anim: 'animate-slide-up' }
+    ];
+
+    const animatedEls = [];
+
+    // Add animation classes
+    animatedMap.forEach(item => {
+        document.querySelectorAll(item.selector).forEach(el => {
+            if (!el.classList.contains(item.anim)) {
+                el.classList.add(item.anim);
+            }
+            animatedEls.push(el);
+        });
+    });
+
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    animatedEls.forEach(el => observer.observe(el));
+});
+// (Удалено: дублирующий код анимации для about-section)
+// ===========================
 // MOBILE MENU TOGGLE
 // ===========================
 

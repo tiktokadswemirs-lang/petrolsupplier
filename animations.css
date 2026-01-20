@@ -1,7 +1,16 @@
 /* ===========================
-   3D ANIMATIONS WITH TRANSFORMS
+   SCROLL ANIMATIONS - UNIFIED SYSTEM
    =========================== */
 
+/* Base state - elements hidden */
+.animate-slide-left,
+.animate-slide-right,
+.animate-slide-up {
+    opacity: 0;
+    transform: translateX(0) translateY(0);
+}
+
+/* Keyframe animations */
 @keyframes slideInLeft {
     from {
         transform: translateX(-100px);
@@ -44,6 +53,77 @@
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/* Trigger animation on scroll - START ANIMATION */
+.animate-visible.animate-slide-left {
+    animation: slideInLeft 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-visible.animate-slide-right {
+    animation: slideInRight 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-visible.animate-slide-up {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .animate-visible.animate-slide-left,
+    .animate-visible.animate-slide-right,
+    .animate-visible.animate-slide-up {
+        animation-duration: 3.5s;
+    }
+}
+
+/* ===========================
+   STAGGER ANIMATIONS FOR CARDS
+   =========================== */
+
+/* Step cards - staggered appearance */
+.steps-grid .step-card {
+    animation-delay: inherit;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(1) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(2) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0.15s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(3) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0.3s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(4) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0.45s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(5) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0.6s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(6) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0.75s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(7) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 0.9s;
+}
+
+.steps-grid .animate-visible.step-card:nth-child(8) {
+    animation: slideInUp 4.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 1.05s;
 }
 
 @keyframes fadeIn {
@@ -189,22 +269,7 @@
    CARD ANIMATIONS
    =========================== */
 
-.direction-card, .partner-card, .step-card {
-    animation: zoomIn 0.6s ease forwards;
-    opacity: 0;
-}
-
-.direction-card:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.direction-card:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.direction-card:nth-child(3) {
-    animation-delay: 0.3s;
-}
+/* Удалены старые дублированные анимации - используем единую систему с animate-slide-* классами */
 
 /* ===========================
    INTERACTIVE ELEMENTS
@@ -255,20 +320,10 @@
    SCROLL ANIMATIONS
    =========================== */
 
-.section-title {
-    animation: slideInUp 0.8s ease forwards;
-    opacity: 0;
-}
 
-.about-text {
-    animation: slideInLeft 0.8s ease forwards;
-    opacity: 0;
-}
-
-.about-logo {
-    animation: slideInRight 0.8s ease forwards;
-    opacity: 0;
-}
+/* ===========================
+   SCROLL ANIMATIONS (Removed - using unified animate-slide-* system)
+   =========================== */
 
 /* ===========================
    PARALLAX & DEPTH EFFECTS
@@ -314,41 +369,8 @@
 }
 
 /* ===========================
-   STAGGER ANIMATIONS
+   STAGGER ANIMATIONS (Removed - using unified system)
    =========================== */
-
-.partner-card, .step-card {
-    animation: zoomIn 0.5s ease-out forwards;
-    opacity: 0;
-}
-
-.steps-grid .step-card:nth-child(1) { animation-delay: 0.1s; }
-.steps-grid .step-card:nth-child(2) { animation-delay: 0.2s; }
-.steps-grid .step-card:nth-child(3) { animation-delay: 0.3s; }
-.steps-grid .step-card:nth-child(4) { animation-delay: 0.4s; }
-.steps-grid .step-card:nth-child(5) { animation-delay: 0.5s; }
-.steps-grid .step-card:nth-child(6) { animation-delay: 0.6s; }
-.steps-grid .step-card:nth-child(7) { animation-delay: 0.7s; }
-.steps-grid .step-card:nth-child(8) { animation-delay: 0.8s; }
-
-.partners-grid .partner-card:nth-child(1) { animation-delay: 0.1s; }
-.partners-grid .partner-card:nth-child(2) { animation-delay: 0.2s; }
-.partners-grid .partner-card:nth-child(3) { animation-delay: 0.3s; }
-.partners-grid .partner-card:nth-child(4) { animation-delay: 0.4s; }
-.partners-grid .partner-card:nth-child(5) { animation-delay: 0.5s; }
-
-.catalog-grid > * {
-    animation: slideInUp 0.6s ease forwards;
-    opacity: 0;
-}
-
-.catalog-grid > *:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.catalog-grid > *:nth-child(2) {
-    animation-delay: 0.2s;
-}
 
 /* ===========================
    HOVER EFFECTS FOR DEPTH
@@ -479,17 +501,5 @@
         right: 10px;
         padding: 10px 15px;
         font-size: 0.9rem;
-    }
-}
-
-
-@keyframes zoomIn {
-    from {
-        transform: scale(0.95);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
     }
 }
