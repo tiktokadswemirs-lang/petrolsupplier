@@ -5,8 +5,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const animatedMap = [
         { selector: '.section-title', anim: 'animate-slide-up' },
-        { selector: '.about-text', anim: 'animate-slide-left' },
-        { selector: '.about-logo', anim: 'animate-slide-right' },
+        { selector: '.animate-slide-left', anim: 'animate-slide-left' },
+        { selector: '.animate-slide-right', anim: 'animate-slide-right' },
         { selector: '.broker-card', anim: 'animate-slide-up' },
         { selector: '.partner-card', anim: 'animate-slide-up' },
         { selector: '.step-card', anim: 'animate-slide-up' },
