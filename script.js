@@ -692,30 +692,3 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(fetchCommodityPrices, 900000);
 });
 
-// ===========================
-// SEARCH & DOWNLOADS
-// ===========================
-
-function toggleSearch() {
-    console.log("Search functionality");
-}
-
-function downloadProducerDocument() {
-    let pdfFile = "proposal.pdf"; // Default RU
-    if (currentLanguage === "en") {
-        pdfFile = "proposal_english.pdf";
-    } else if (currentLanguage === "tr") {
-        pdfFile = "proposal_turkish.pdf";
-    }
-    window.open("/assets/pdf/" + pdfFile, "_blank");
-}
-
-function downloadBuyerDocument() {
-    let pdfFile = "proposal_klient.pdf"; // Default RU
-    if (currentLanguage === "en") {
-        pdfFile = "proposal_klient_en.pdf";
-    } else if (currentLanguage === "tr") {
-        pdfFile = "proposal_klient_tr.pdf";
-    }
-    window.open("/assets/pdf/" + pdfFile, "_blank");
-}
