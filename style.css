@@ -879,7 +879,7 @@ a:hover {
 
 .pricing-liability-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 60px;
     align-items: flex-start;
 }

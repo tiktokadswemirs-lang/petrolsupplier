@@ -231,6 +231,12 @@ const translations = {
         liability4: "Не является гарантом исполнения обязательств продавца или покупателя",
         liability5: "Оставляет за собой право отказать в сопровождении сделки",
 
+        turkmenistanDealsTitle: "Сделки с туркменским происхождением",
+        turkmenistanDeals1: "Требуется готовность к участию в биржевой процедуре",
+        turkmenistanDeals2: "Необходима предоплата перед получением товара",
+        turkmenistanDeals3: "Учёт публикации котировок на сайте ГТСБТ",
+        turkmenistanDeals4: "Соответствие требованиям и процедурам Государственной товарно-сырьевой биржи Туркменистана",
+
         // CATALOG
         catalogTitle: "Продукты с которыми мы работаем",
         
@@ -443,6 +449,12 @@ const translations = {
         liability4: "Is not a guarantor of performance of obligations of seller or buyer",
         liability5: "Reserves the right to refuse to accompany the transaction",
 
+        turkmenistanDealsTitle: "Transactions with Turkmen Origin",
+        turkmenistanDeals1: "Requires readiness to participate in exchange procedures",
+        turkmenistanDeals2: "Prepayment required before receipt of goods",
+        turkmenistanDeals3: "Account for publication of quotes on GTSBT website",
+        turkmenistanDeals4: "Compliance with requirements and procedures of the State Commodity and Raw Materials Exchange of Turkmenistan",
+
         catalogTitle: "Products we work with",
         
         partnersTitle: "Our partner categories",
@@ -649,6 +661,12 @@ const translations = {
         liability3: "Tarafların eylemlerinden sorumlu değildir",
         liability4: "Satıcı veya alıcının yükümlülüklerinin yerine getirilmesinin garantörü değildir",
         liability5: "İşlemin eşlikten vazgeçme hakkını saklı tutar",
+
+        turkmenistanDealsTitle: "Türkmen Menşeli İşlemler",
+        turkmenistanDeals1: "Borsa prosedürlere katılmaya hazır olunması gereklidir",
+        turkmenistanDeals2: "Mal alınmadan önce ön ödeme gereklidir",
+        turkmenistanDeals3: "GTSBT web sitesinde kotiasyon yayınlanmasının hesaba katılması",
+        turkmenistanDeals4: "Türkmenistan Devlet Emtia ve Hammadde Borsasının gereksinimlerine ve prosedürlerine uygunluk",
 
         catalogTitle: "Çalıştığımız Ürünler",
         
