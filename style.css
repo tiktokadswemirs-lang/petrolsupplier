@@ -825,7 +825,7 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .step-card {
@@ -838,7 +838,11 @@ a:hover {
     /* Animation for entrance */
     animation: zoomIn 0.6s ease forwards;
     opacity: 0;
-    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
 }
 
 .step-card:hover {
