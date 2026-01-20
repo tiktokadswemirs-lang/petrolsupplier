@@ -591,6 +591,27 @@ a:hover {
     background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
 }
 
+.subsection-title {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    position: relative;
+    font-weight: 600;
+}
+
+.subsection-title::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+}
+
 .section-text {
     text-align: center;
     font-size: 1.1rem;
@@ -804,6 +825,7 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    align-items: start;
 }
 
 .step-card {
@@ -816,6 +838,7 @@ a:hover {
     /* Animation for entrance */
     animation: zoomIn 0.6s ease forwards;
     opacity: 0;
+    height: fit-content;
 }
 
 .step-card:hover {
