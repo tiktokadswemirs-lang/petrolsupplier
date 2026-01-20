@@ -872,6 +872,67 @@ a:hover {
     margin: 0;
 }
 
+/* PRICING & LIABILITY SECTION */
+.pricing-liability-section {
+    background-color: var(--bg-primary);
+}
+
+.pricing-liability-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.pricing-column,
+.liability-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.column-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-list li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.info-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 /* CONTACT SECTION */
 .contact-section {
     background-color: var(--bg-primary);
@@ -1346,6 +1407,21 @@ a.product-btn[href="koks.html"] {
     .broker-card h4 {
         margin-left: 0;
         margin-right: 0;
+    }
+
+    .pricing-liability-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .column-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+
+    .info-list li {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
     }
 }
 

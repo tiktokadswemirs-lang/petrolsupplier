@@ -218,6 +218,19 @@ const translations = {
         step13: "Комиссия брокера",
         step13desc: "Выплачивается согласно NCNDA / IMFPA / Fee Protection Agreement.",
 
+        // PRICING & LIABILITY
+        pricingTitle: "Ценообразование",
+        pricing1: "Цена формируется на основе международных бенчмарков (Platts / Argus)",
+        pricing2: "Финальные параметры фиксируются в SPA и CI",
+        pricing3: "Брокер не устанавливает цену, а контролирует корректность формулы",
+        
+        liabilityTitle: "Ограничение ответственности",
+        liability1: "Брокер не гарантирует наличие товара или оплату",
+        liability2: "Не участвует в финансировании и логистике",
+        liability3: "Не несёт ответственности за действия сторон",
+        liability4: "Не является гарантом исполнения обязательств продавца или покупателя",
+        liability5: "Оставляет за собой право отказать в сопровождении сделки",
+
         // CATALOG
         catalogTitle: "Продукты с которыми мы работаем",
         
@@ -417,6 +430,19 @@ const translations = {
         step13: "Broker Commission",
         step13desc: "Paid according to NCNDA / IMFPA / Fee Protection Agreement.",
 
+        // PRICING & LIABILITY
+        pricingTitle: "Pricing",
+        pricing1: "Price is formed based on international benchmarks (Platts / Argus)",
+        pricing2: "Final parameters are fixed in SPA and CI",
+        pricing3: "Broker does not set the price but controls the correctness of the formula",
+        
+        liabilityTitle: "Limitation of Liability",
+        liability1: "Broker does not guarantee product availability or payment",
+        liability2: "Does not participate in financing and logistics",
+        liability3: "Not responsible for the actions of parties",
+        liability4: "Is not a guarantor of performance of obligations of seller or buyer",
+        liability5: "Reserves the right to refuse to accompany the transaction",
+
         catalogTitle: "Products we work with",
         
         partnersTitle: "Our partner categories",
@@ -610,6 +636,19 @@ const translations = {
         step12desc: "Alıcının bankası tarafından belgeler karşılığında yapılır.",
         step13: "Broker Komisyonu",
         step13desc: "NCNDA / IMFPA / Ücret Koruma Sözleşmesine göre ödenir.",
+
+        // PRICING & LIABILITY
+        pricingTitle: "Fiyatlandırma",
+        pricing1: "Fiyat, uluslararası kıyaslamalar (Platts / Argus) temelinde oluşturulur",
+        pricing2: "Nihai parametreler SPA ve CI'de sabitlenir",
+        pricing3: "Broker fiyat belirlemez, formülün doğruluğunu kontrol eder",
+        
+        liabilityTitle: "Sorumluluk Sınırlaması",
+        liability1: "Broker ürün mevcudiyetini veya ödemeyi garanti etmez",
+        liability2: "Finansman ve lojistiklere katılmaz",
+        liability3: "Tarafların eylemlerinden sorumlu değildir",
+        liability4: "Satıcı veya alıcının yükümlülüklerinin yerine getirilmesinin garantörü değildir",
+        liability5: "İşlemin eşlikten vazgeçme hakkını saklı tutar",
 
         catalogTitle: "Çalıştığımız Ürünler",
         
