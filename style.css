@@ -1397,6 +1397,63 @@ a:hover {
 }
 
 
+/* New Adaptation for 415px - 490px (Fixing distortion by using 1-column list) */
+@media (min-width: 415px) and (max-width: 490px) {
+    .footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .footer-column {
+        width: 100%;
+        text-align: left;
+    }
+
+    .footer-column button {
+        font-size: 1rem;
+        text-align: left;
+        padding: 12px 0;
+        line-height: 1.4;
+        width: 100%;
+        color: #ffffff;
+        font-weight: 500;
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
+    }
+
+    .footer-column:last-child button {
+        border-bottom: none;
+    }
+
+    .footer-bottom {
+        padding-top: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 15px;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .social-links {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .social-links a {
+        margin-left: 0;
+    }
+}
+
+
 /* Custom style for product item button */
 .product-btn {
     /* New Button Styles */
