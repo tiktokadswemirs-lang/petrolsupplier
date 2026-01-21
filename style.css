@@ -435,14 +435,29 @@ a:hover {
 .mobile-menu {
     display: none;
     flex-direction: column;
-    gap: 12px;
-    padding: 16px 0;
+    gap: 8px;
+    padding: 20px 0;
     border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .mobile-menu.active {
     display: flex;
 }
+
+.mobile-menu .nav-link {
+    text-align: left;
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 1rem;
+    line-height: 1.4;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-menu .nav-link:last-child {
+    border-bottom: none;
+}
+
+
 
 /* HERO SECTION */
 .hero {
@@ -1218,7 +1233,7 @@ a:hover {
     }
 
     .footer-grid {
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 20px;
     }
 
@@ -1298,6 +1313,73 @@ a:hover {
 }
 
 
+/* Footer Adaptation matching mobile menu style (430px, 390px) */
+@media (max-width: 430px) {
+    .footer {
+        padding: 40px 20px 30px;
+    }
+
+    .footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .footer-column {
+        width: 100%;
+        text-align: left;
+    }
+
+    .footer-column button {
+        font-size: 1rem;
+        text-align: left;
+        padding: 12px 0;
+        line-height: 1.4;
+        width: 100%;
+        color: #ffffff;
+        font-weight: 500;
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
+    }
+
+    .footer-column:last-child button {
+        border-bottom: none;
+    }
+
+    .footer-bottom {
+        padding-top: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 15px;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .social-links {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .social-links a {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 390px) {
+    .footer-column button {
+        font-size: 0.95rem;
+        padding: 10px 0;
+    }
+}
+
 /* More granular responsive adjustments */
 @media (max-width: 375px) {
     .hero-title {
@@ -1309,7 +1391,8 @@ a:hover {
     }
 
     .footer-grid {
-        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
     }
 }
 
@@ -1424,6 +1507,83 @@ a.product-btn[href="koks.html"] {
     .info-list li {
         font-size: 0.95rem;
         margin-bottom: 15px;
+    }
+
+    /* PIXEL-PERFECT MOBILE MENU FOR IPHONE */
+    #mobileMenu {
+        display: none;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        background: #0d1419 !important;
+        padding: 5px 0 !important;
+        gap: 0 !important;
+        width: 100% !important;
+        position: relative !important;
+        z-index: 9999 !important;
+    }
+
+    #mobileMenu.active {
+        display: flex !important;
+    }
+
+    #mobileMenu .nav-link {
+        text-align: left !important;
+        width: 100% !important;
+        padding: 12px 20px !important;
+        color: #ffffff !important;
+        font-size: 1rem !important;
+        background: transparent !important;
+        border: none !important;
+        display: block !important;
+        text-transform: none !important;
+        font-weight: 500 !important;
+        letter-spacing: normal !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Highlight matching the user's screenshot */
+    #mobileMenu .nav-link[data-translate="catalog"] {
+        color: var(--accent-color) !important;
+    }
+
+    #mobileMenu .nav-link:active {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .mobile-contact {
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+        padding: 15px 20px !important;
+        width: 100% !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        margin-bottom: 5px !important;
+    }
+
+    .mobile-contact-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+    }
+
+    .mobile-contact-icon {
+        font-size: 1.8rem !important;
+    }
+
+    .mobile-contact-label {
+        font-size: 0.85rem !important;
+        color: #ffffff !important;
+        margin: 0 !important;
+        opacity: 0.7 !important;
+    }
+
+    .mobile-contact-value {
+        font-size: 1.15rem !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+        display: block !important;
+        margin-top: 2px !important;
     }
 }
 
