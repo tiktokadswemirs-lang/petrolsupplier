@@ -1043,9 +1043,11 @@ a:hover {
 
 .footer-grid {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin-bottom: 40px;
+    gap: 15px;
 }
 
 .footer-column button {
