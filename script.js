@@ -97,13 +97,13 @@ const translations = {
 
     ru: {
         // HEADER / NAV
-        catalog: "Мы сопровождаем сделки со следующими продуктами",
-        logistics: "KYC, Due Diligence и AML",
         about: "О Нас",
-        contacts: "Контакты",
-        cooperation: "Реальная и надёжная процедура сделки",
-        global: "Туркменистан и биржевая модель поставок",
         directions: "Роль Брокера",
+        catalog: "Мы сопровождаем сделки со следующими продуктами",
+        global: "Туркменистан и биржевая модель поставок",
+        logistics: "KYC, Due Diligence и AML",
+        cooperation: "Реальная и надёжная процедура сделки",
+        contacts: "Контакты",
 
         // HERO
         heroTitle: "Нефтепродукты по всему миру",
@@ -317,13 +317,13 @@ const translations = {
 
 
     en: {
-        catalog: "We accompany transactions with the following products",
-        logistics: "KYC, Due Diligence and AML",
         about: "About Us",
-        contacts: "Contacts",
-        cooperation: "Real and Reliable Transaction Procedure",
-        global: "Turkmenistan and Exchange Supply Model",
         directions: "Broker Role",
+        catalog: "We accompany transactions with the following products",
+        global: "Turkmenistan and Exchange Supply Model",
+        logistics: "KYC, Due Diligence and AML",
+        cooperation: "Real and Reliable Transaction Procedure",
+        contacts: "Contacts",
 
         heroTitle: "Petroleum Products Worldwide",
         heroSubtitle: "Spot solutions and long-term contracts with transparent pricing",
@@ -529,13 +529,13 @@ const translations = {
 
 
     tr: {
-        catalog: "Aşağıdaki ürünlerle işlemlere eşlik ediyoruz",
-        logistics: "KYC, Due Diligence ve AML",
         about: "Hakkımızda",
-        contacts: "İletişim",
-        cooperation: "Gerçek ve Güvenilir İşlem Prosedürü",
-        global: "Türkmenistan ve Borsa Tedarik Modeli",
         directions: "Broker Rolü",
+        catalog: "Aşağıdaki ürünlerle işlemlere eşlik ediyoruz",
+        global: "Türkmenistan ve Borsa Tedarik Modeli",
+        logistics: "KYC, Due Diligence ve AML",
+        cooperation: "Gerçek ve Güvenilir İşlem Prosedürü",
+        contacts: "İletişim",
 
         heroTitle: "Dünya Çapında Petrol Ürünleri",
         heroSubtitle: "Şeffaf fiyatlandırma ile spot çözümler ve uzun vadeli sözleşmeler",
