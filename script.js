@@ -831,8 +831,9 @@ let currentLanguage = getInitialLanguage();
 // REAL-TIME COMMODITY PRICES API
 // ===========================
 
-const OIL_API_KEY = "e2e13101890a6549ff26639002140cd06df6cc50c2884cd1dc4c621dfa893bbd";
-const OIL_API_URL = "https://api.oilpriceapi.com/v1/prices/latest?by_code=brent_crude";
+const OIL_API_KEY = "4665f3284a6247ad4cadef870e4bcbe07ab4eee8fb5c27861a4a2f457e7ee269";
+const OIL_API_URL = "https://api.oilpriceapi.com/v1/prices/latest";
+const PROXY_URL = "https://petrolsupplier.com/proxy.php";
 
 async function fetchCommodityPrices() {
     const oilPriceElement = document.getElementById("oil-price");
@@ -850,6 +851,8 @@ async function fetchCommodityPrices() {
 
     // Если прошло меньше 15 минут с последнего запроса
     if (now - lastFetchTime < CACHE_DURATION) {
+        console.log("Using cached price to save API limit.");
+
         // Восстанавливаем цену
         const cachedPrice = localStorage.getItem("lastOilPrice");
         if (cachedPrice) {
@@ -882,6 +885,7 @@ async function fetchCommodityPrices() {
         }
         return; // Выходим из функции, НЕ делая запрос
     }
+    // ---------------------------
 
     try {
         const response = await fetch(OIL_API_URL, {
@@ -890,28 +894,17 @@ async function fetchCommodityPrices() {
                 "Content-Type": "application/json"
             }
         });
-
-        // ТИХАЯ ОБРАБОТКА ЛИМИТА
-        if (response.status === 429) {
-            // Лимит исчерпан. Просто молчим и не обновляем цену.
-            return;
-        }
-
-        if (!response.ok) {
-            return;
-        }
-
         const jsonResponse = await response.json();
         const rawPrice = jsonResponse?.data?.price;
 
         if (typeof rawPrice === 'undefined' || rawPrice === null) {
-            return;
+            throw new Error("Price data missing in API response");
         }
 
         const newOilPrice = parseFloat(rawPrice);
 
         if (isNaN(newOilPrice)) {
-            return;
+            throw new Error("Price is NaN");
         }
 
         const lastPrice = parseFloat(localStorage.getItem("lastOilPrice")) || newOilPrice;
@@ -938,7 +931,7 @@ async function fetchCommodityPrices() {
         oilChangeElement.textContent = oilChangeStr;
 
         // Сохраняем данные нефти и ВРЕМЯ ЗАПРОСА
-        localStorage.setItem("oilFetchTime", now.toString());
+        localStorage.setItem("oilFetchTime", now.toString()); // <-- Важно для таймера
         localStorage.setItem("lastOilPrice", newOilPrice.toFixed(4));
         localStorage.setItem("lastOilChangeText", oilChangeStr);
         localStorage.setItem("lastOilChangeClass", oilChangeClass);
@@ -1000,6 +993,8 @@ async function fetchCommodityPrices() {
         localStorage.setItem("lastGoldClass", goldClass);
 
     } catch (error) {
+        console.error("Error fetching commodity prices:", error);
+
         // --- GRACEFUL FALLBACK ON ERROR ---
         const cachedPrice = localStorage.getItem("lastOilPrice");
         const cachedChangeText = localStorage.getItem("lastOilChangeText");
@@ -1015,17 +1010,18 @@ async function fetchCommodityPrices() {
             oilChangeElement.textContent = "0.00";
         }
 
-        // Restore Gas/Gold logic...
+        // Also restore Gas/Gold from cache or defaults
         const cachedGas = localStorage.getItem("lastGasDisplay");
         const cachedGasClass = localStorage.getItem("lastGasClass");
-        if (gasChangeElement && cachedGas) {
-            gasChangeElement.textContent = cachedGas;
+        if (gasChangeElement) {
+            gasChangeElement.textContent = cachedGas || "2.850";
             if (cachedGasClass) gasChangeElement.classList.add(cachedGasClass);
         }
+
         const cachedGold = localStorage.getItem("lastGoldDisplay");
         const cachedGoldClass = localStorage.getItem("lastGoldClass");
-        if (goldChangeElement && cachedGold) {
-            goldChangeElement.textContent = cachedGold;
+        if (goldChangeElement) {
+            goldChangeElement.textContent = cachedGold || "+5.20 ↑";
             if (cachedGoldClass) goldChangeElement.classList.add(cachedGoldClass);
         }
     }
@@ -1041,4 +1037,3 @@ document.addEventListener("DOMContentLoaded", function () {
     // Запускаем интервал 15 минут (900000 мс)
     setInterval(fetchCommodityPrices, 900000);
 });
-
