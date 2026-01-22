@@ -828,12 +828,11 @@ let currentLanguage = getInitialLanguage();
 
 
 // ===========================
-// REAL-TIME COMMODITY PRICES API
+// REAL-TIME COMMODITY PRICES API (OPTIMIZED)
 // ===========================
 
 const OIL_API_KEY = "4665f3284a6247ad4cadef870e4bcbe07ab4eee8fb5c27861a4a2f457e7ee269";
 const OIL_API_URL = "https://api.oilpriceapi.com/v1/prices/latest";
-const PROXY_URL = "https://petrolsupplier.com/proxy.php";
 
 async function fetchCommodityPrices() {
     const oilPriceElement = document.getElementById("oil-price");
@@ -1037,3 +1036,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Запускаем интервал 15 минут (900000 мс)
     setInterval(fetchCommodityPrices, 900000);
 });
+
