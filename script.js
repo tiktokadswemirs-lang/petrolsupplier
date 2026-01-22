@@ -828,13 +828,10 @@ let currentLanguage = getInitialLanguage();
 
 
 // ===========================
-// REAL-TIME COMMODITY PRICES (Public Internet Access)
+// REAL-TIME COMMODITY PRICES (AI AGENT CONNECTION)
 // ===========================
 
-// We use a public CORS proxy to access Yahoo Finance directly from the browser.
-// This works even on 127.0.0.1:5500 without a PHP server.
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-const API_BASE = "https://query1.finance.yahoo.com/v8/finance/chart/";
+const AGENT_URL = "./proxy.php";
 
 async function fetchCommodityPrices() {
     const oilPriceElement = document.getElementById("oil-price");
@@ -844,170 +841,71 @@ async function fetchCommodityPrices() {
 
     if (!oilPriceElement) return;
 
-    // --- 1. Try to fetch Real Data from the Internet ---
     try {
-        console.log("Connecting to Global Markets...");
+        console.log("AI Agent: Connecting to markets..."); // Log for debugging
 
-        // Run requests in parallel for speed
-        const [oilData, gasData, goldData] = await Promise.all([
-            fetchMarketData("BZ=F"), // Brent Crude Oil
-            fetchMarketData("NG=F"), // Natural Gas
-            fetchMarketData("GC=F")  // Gold
-        ]);
+        // 1. Request Real Data from our AI Agent
+        const response = await fetch(AGENT_URL + "?t=" + Date.now()); // Prevent browser caching
 
-        if (oilData) {
-            updateTickerItem(oilPriceElement, oilChangeElement, oilData, '$', 2);
-            saveToCache("Oil", oilData);
+        if (!response.ok) {
+            throw new Error(`Agent Connection Error: ${response.status}`);
         }
 
-        if (gasData) {
-            updateTickerItem(null, gasChangeElement, gasData, '', 3); // Gas uses change slot for display
-            saveToCache("Gas", gasData);
+        const data = await response.json();
+
+        // 2. Validate and Update UI (STRICTLY REAL DATA)
+
+        // --- Brent Oil ---
+        if (data.oil && data.oil.valid) {
+            const price = parseFloat(data.oil.price);
+            const change = parseFloat(data.oil.change);
+
+            oilPriceElement.textContent = `$${price.toFixed(2)}`;
+            updateChangeIndicator(oilChangeElement, change, 2, true);
         }
 
-        if (goldData) {
-            updateTickerItem(null, goldChangeElement, goldData, '', 1); // Gold uses change slot for display
-            saveToCache("Gold", goldData);
+        // --- Natural Gas ---
+        if (data.gas && data.gas.valid) {
+            const price = parseFloat(data.gas.price);
+            // const change = parseFloat(data.gas.change);
+            // Show Price + Arrow for Gas
+            updateChangeIndicator(gasChangeElement, parseFloat(data.gas.change), 3, false, price);
         }
 
-        // Update timestamp
-        localStorage.setItem("marketFetchTime", Date.now().toString());
+        // --- Gold ---
+        if (data.gold && data.gold.valid) {
+            const price = parseFloat(data.gold.price);
+            const change = parseFloat(data.gold.change);
+            // Show Price + Arrow for Gold (user asked: "show if gold increased")
+            updateChangeIndicator(goldChangeElement, change, 1, false, price);
+        }
 
     } catch (error) {
-        console.warn("Market Connection Weak/Blocked. Switching to Simulation Mode.", error);
-        // --- 2. Fallback: Simulation Mode (So it ALWAYS looks working) ---
-        runSimulationMode(oilPriceElement, oilChangeElement, gasChangeElement, goldChangeElement);
+        console.error("AI Agent failed to retrieve real data:", error);
+        // Do NOT show random numbers. Leave as loading state or previous state.
+        // This eliminates the "Risk".
     }
 }
 
-// Fetch helper using CORS Proxy
-async function fetchMarketData(symbol) {
-    try {
-        const targetUrl = `${API_BASE}${symbol}?interval=1d&range=1d`;
-        const response = await fetch(`${CORS_PROXY}${encodeURIComponent(targetUrl)}`);
+// Helper to format the change/price display
+function updateChangeIndicator(element, change, decimals, isMainPrice, currentPrice = 0) {
+    if (!element) return;
 
-        if (!response.ok) throw new Error("Network response was not ok");
+    element.classList.remove("positive", "negative");
 
-        const json = await response.json();
-        const meta = json?.chart?.result?.[0]?.meta;
+    const absChange = Math.abs(change).toFixed(decimals);
+    const arrow = change >= 0 ? "↑" : "↓";
+    const cssClass = change >= 0 ? "positive" : "negative";
 
-        if (!meta) return null;
+    element.classList.add(cssClass);
 
-        const price = meta.regularMarketPrice;
-        const prevClose = meta.chartPreviousClose || meta.previousClose;
-        const change = price - prevClose;
-
-        return { price, change };
-    } catch (e) {
-        console.error(`Failed to fetch ${symbol}:`, e);
-        return null;
-    }
-}
-
-// Helper: Update UI
-function updateTickerItem(priceEl, changeEl, data, prefix, decimals) {
-    const price = parseFloat(data.price);
-    const change = parseFloat(data.change);
-
-    if (isNaN(price)) return;
-
-    // Update Main Price (if element provided)
-    if (priceEl) {
-        priceEl.textContent = `${prefix}${price.toFixed(decimals)}`;
-    }
-
-    // Update Change/Secondary Display
-    if (changeEl) {
-        changeEl.classList.remove("positive", "negative");
-
-        // Logic: For Oil, we might show just change. For Gas/Gold, we often show the Price + Arrow.
-        // Based on previous design:
-        // Oil: Shows Price big, Change small.
-        // Gas/Gold: Shows Label + "Change" slot.
-
-        let displayStr = "";
-        let directionClass = "";
-        const arrow = change >= 0 ? "↑" : "↓";
-
-        if (change >= 0) {
-            directionClass = "positive";
-        } else {
-            directionClass = "negative";
-        }
-
-        // If there is NO priceEl (Gas & Gold), we display the PRICE in the change slot
-        if (!priceEl) {
-            displayStr = `${price.toFixed(decimals)} ${arrow}`;
-        } else {
-            // For Oil (has priceEl), we show the CHANGE amount
-            displayStr = `${change >= 0 ? '+' : ''}${change.toFixed(decimals)} ${arrow}`;
-        }
-
-        changeEl.textContent = displayStr;
-        changeEl.classList.add(directionClass);
-    }
-}
-
-// Fallback: Simulation Mode (Realistic Random Walk)
-function runSimulationMode(oilPriceEl, oilChangeEl, gasChangeEl, goldChangeEl) {
-    // Check if we have a "starting base" or create one
-    let baseOil = parseFloat(localStorage.getItem("simOil")) || 74.50;
-    let baseGas = parseFloat(localStorage.getItem("simGas")) || 2.850;
-    let baseGold = parseFloat(localStorage.getItem("simGold")) || 2045.0;
-
-    // Random walk (small increments)
-    baseOil += (Math.random() - 0.5) * 0.15;
-    baseGas += (Math.random() - 0.5) * 0.02;
-    baseGold += (Math.random() - 0.5) * 2.5;
-
-    // Bounds check
-    if (baseOil < 60) baseOil = 60; if (baseOil > 90) baseOil = 90;
-    if (baseGas < 2) baseGas = 2; if (baseGas > 5) baseGas = 5;
-    if (baseGold < 1800) baseGold = 1800; if (baseGold > 2300) baseGold = 2300;
-
-    // Save state
-    localStorage.setItem("simOil", baseOil);
-    localStorage.setItem("simGas", baseGas);
-    localStorage.setItem("simGold", baseGold);
-
-    // Render
-    updateTickerItem(oilPriceEl, oilChangeEl, { price: baseOil, change: (Math.random() - 0.5) }, '$', 2);
-    updateTickerItem(null, gasChangeElement, { price: baseGas, change: (Math.random() - 0.5) }, '', 3);
-    updateTickerItem(null, goldChangeElement, { price: baseGold, change: (Math.random() - 0.5) }, '', 1);
-}
-
-function saveToCache(type, data) {
-    if (!data) return;
-    localStorage.setItem(`cached${type}Price`, data.price);
-    localStorage.setItem(`cached${type}Change`, data.change);
-}
-
-function restoreFromCache(oilPriceEl, oilChangeEl, gasChangeEl, goldChangeEl) {
-    // Restore Oil
-    const oilPrice = localStorage.getItem("cachedOilPrice");
-    const oilChange = localStorage.getItem("cachedOilChange");
-    if (oilPrice) {
-        updateTickerItem(oilPriceEl, oilChangeEl, { price: oilPrice, change: oilChange || 0 }, '$', 2);
+    if (isMainPrice) {
+        // Format: "+1.20 ↑"
+        element.textContent = `${change >= 0 ? '+' : '-'}${absChange} ${arrow}`;
     } else {
-        // Fallback static
-        oilPriceEl.textContent = "$74.50";
-        oilChangeEl.textContent = "0.00";
-    }
-
-    // Restore Gas
-    const gasPrice = localStorage.getItem("cachedGasPrice");
-    const gasChange = localStorage.getItem("cachedGasChange");
-    if (gasPrice && gasChangeEl) {
-        // Gas uses change slot for display in this new logic
-        updateTickerItem(null, gasChangeElement, { price: gasPrice, change: gasChange || 0 }, '', 3);
-    }
-
-    // Restore Gold
-    const goldPrice = localStorage.getItem("cachedGoldPrice");
-    const goldChange = localStorage.getItem("cachedGoldChange");
-    if (goldPrice && goldChangeEl) {
-        // Gold uses change slot for display in this new logic
-        updateTickerItem(null, goldChangeElement, { price: goldPrice, change: goldChange || 0 }, '', 1);
+        // Format: "2045.50 ↑" (Shows Price + Direction)
+        // User asked "show if gold increased", so arrow is key.
+        element.textContent = `${currentPrice.toFixed(decimals)} ${arrow}`;
     }
 }
 
@@ -1018,10 +916,8 @@ function restoreFromCache(oilPriceEl, oilChangeEl, gasChangeEl, goldChangeEl) {
 document.addEventListener("DOMContentLoaded", function () {
     switchLanguage(currentLanguage);
 
-    // Initial Fetch
     fetchCommodityPrices();
-
-    // Auto-refresh every 60 seconds (since we might be using simulation or fast proxy)
-    setInterval(fetchCommodityPrices, 60000);
+    // Refresh real data every 2 minutes
+    setInterval(fetchCommodityPrices, 120000);
 });
 
