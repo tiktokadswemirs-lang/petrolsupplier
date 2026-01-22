@@ -833,7 +833,7 @@ let currentLanguage = getInitialLanguage();
 
 const OIL_API_KEY = "4665f3284a6247ad4cadef870e4bcbe07ab4eee8fb5c27861a4a2f457e7ee269";
 const OIL_API_URL = "https://api.oilpriceapi.com/v1/prices/latest?by_code=brent_crude";
-const PROXY_URL = "https://petrolsupplier.com/proxy.php";
+const PROXY_URL = "./proxy.php";
 
 async function fetchCommodityPrices() {
     const oilPriceElement = document.getElementById("oil-price");
