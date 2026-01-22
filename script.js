@@ -1006,8 +1006,8 @@ async function fetchCommodityPrices() {
             if (cachedChangeClass) oilChangeElement.classList.add(cachedChangeClass);
         } else {
             // Default static values if no cache exists
-            oilPriceElement.textContent = `$74.50`;
-            oilChangeElement.textContent = "0.00";
+            oilPriceElement.textContent = `---`;
+            oilChangeElement.textContent = "---";
         }
 
         // Also restore Gas/Gold from cache or defaults
