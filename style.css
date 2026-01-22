@@ -1598,8 +1598,7 @@ a.product-btn[href="koks.html"] {
         line-height: 1.3 !important;
     }
 
-    /* Highlight matching the user's screenshot */
-    #mobileMenu .nav-link[data-translate="catalog"] {
+    #mobileMenu .nav-link.active {
         color: var(--accent-color) !important;
     }
 

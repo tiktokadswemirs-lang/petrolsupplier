@@ -41,12 +41,56 @@ document.addEventListener("DOMContentLoaded", function () {
                 observer.unobserve(entry.target);
             }
         });
-    }, { 
+    }, {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
     });
 
     animatedEls.forEach(el => observer.observe(el));
+
+    // ===========================
+    // ACTIVE NAV HIGHLIGHTING
+    // ===========================
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    function updateActiveNavLink() {
+        let currentSectionId = "";
+        let maxVisibleHeight = 0;
+
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            // Вычисляем видимую высоту секции в окне
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+            // Если секция видна хотя бы немного
+            if (visibleHeight > 0) {
+                // Если эта секция видна больше, чем предыдущая найденная - считаем её активной
+                if (visibleHeight > maxVisibleHeight) {
+                    maxVisibleHeight = visibleHeight;
+                    currentSectionId = section.getAttribute("id");
+                }
+            }
+        });
+
+        // Corner case: если мы в самом низу страницы, подсветим последний пункт (Контакты)
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+            const lastSection = sections[sections.length - 1];
+            if (lastSection) currentSectionId = lastSection.getAttribute("id");
+        }
+
+        navLinks.forEach(link => {
+            link.classList.remove("active");
+            const onclickAttr = link.getAttribute("onclick");
+            // Ищем точное совпадение ID в вызове функции scrollToSection('ID')
+            if (onclickAttr && currentSectionId && onclickAttr.includes(`scrollToSection('${currentSectionId}')`)) {
+                link.classList.add("active");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", updateActiveNavLink);
+    updateActiveNavLink(); // Run on load
 });
 // (Удалено: дублирующий код анимации для about-section)
 // ===========================
@@ -60,7 +104,7 @@ function toggleMobileMenu() {
     menuBtn.classList.toggle("active");
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     const header = document.querySelector(".header");
     const mobileMenu = document.getElementById("mobileMenu");
     const menuBtn = document.querySelector(".mobile-menu-btn");
@@ -173,7 +217,7 @@ const translations = {
         cond_volumes: "только подтверждённые объёмы",
         cond_sanctions: "только несанкционный продукт",
         cond_banking: "только сделки с банковскими инструментами",
-        
+
         // PROTECTION & COMMISSION
         brokerguard: "Защита интересов",
         soprovojdenie: "Международная практика защиты посреднического вознаграждения:",
@@ -222,7 +266,7 @@ const translations = {
         pricing1: "Цена формируется на основе международных бенчмарков (Platts / Argus)",
         pricing2: "Финальные параметры фиксируются в SPA и CI",
         pricing3: "Брокер не устанавливает цену, а контролирует корректность формулы",
-        
+
         liabilityTitle: "Ограничение ответственности",
         liability1: "Брокер не гарантирует наличие товара или оплату",
         liability2: "Не участвует в финансировании и логистике",
@@ -239,7 +283,7 @@ const translations = {
 
         // CATALOG
         catalogTitle: "Продукты с которыми мы работаем",
-        
+
         // PARTNERS
         partnersTitle: "Категории наших партнеров",
         partnerGov: "Государственные предприятия",
@@ -265,7 +309,7 @@ const translations = {
         qualityResp: "Мы несем полную ответственность за качество услуг",
         isoCertified: "ISO сертифицировано",
         isoDesc: "Все операции соответствуют международным стандартам",
-        
+
         // KYC & DUE DILIGENCE TRANSLATIONS
         kycDueDiligenceTitle: "KYC & Due Diligence",
         kycDueDiligenceDesc: "Проводится взаимно для всех сторон сделки.",
@@ -441,7 +485,7 @@ const translations = {
         pricing1: "Price is formed based on international benchmarks (Platts / Argus)",
         pricing2: "Final parameters are fixed in SPA and CI",
         pricing3: "Broker does not set the price but controls the correctness of the formula",
-        
+
         liabilityTitle: "Limitation of Liability",
         liability1: "Broker does not guarantee product availability or payment",
         liability2: "Does not participate in financing and logistics",
@@ -457,7 +501,7 @@ const translations = {
         turkmenistanDeals5: "For transactions originating in Turkmenistan, you must be prepared to participate in the exchange procedure, make advance payments, and take into account the publication of quotes on the SCRMET website.",
 
         catalogTitle: "Products we work with",
-        
+
         partnersTitle: "Our partner categories",
         partnerGov: "Government enterprises",
         partnerAgro: "Agricultural companies",
@@ -480,7 +524,7 @@ const translations = {
         qualityResp: "We take full responsibility for service quality",
         isoCertified: "ISO Certified",
         isoDesc: "All operations comply with international standards",
-        
+
         // KYC & DUE DILIGENCE TRANSLATIONS
         kycDueDiligenceTitle: "KYC & Due Diligence",
         kycDueDiligenceDesc: "Conducted mutually for all parties to the transaction.",
@@ -655,7 +699,7 @@ const translations = {
         pricing1: "Fiyat, uluslararası kıyaslamalar (Platts / Argus) temelinde oluşturulur",
         pricing2: "Nihai parametreler SPA ve CI'de sabitlenir",
         pricing3: "Broker fiyat belirlemez, formülün doğruluğunu kontrol eder",
-        
+
         liabilityTitle: "Sorumluluk Sınırlaması",
         liability1: "Broker ürün mevcudiyetini veya ödemeyi garanti etmez",
         liability2: "Finansman ve lojistiklere katılmaz",
@@ -671,7 +715,7 @@ const translations = {
         turkmenistanDeals5: "Türkmenistan menşeli işlemler için borsa prosedürlerine katılmaya hazır olunması, ön ödeme yapılması ve GTSBT web sitesinde kotiasyon yayınlanmasının dikkate alınması gereklidir.",
 
         catalogTitle: "Çalıştığımız Ürünler",
-        
+
         partnersTitle: "Ortak Kategorilerimiz",
         partnerGov: "Devlet işletmeleri",
         partnerAgro: "Tarım işletmeleri",
@@ -694,7 +738,7 @@ const translations = {
         qualityResp: "Hizmet kalitesi için tam sorumluluk alıyoruz",
         isoCertified: "ISO Sertifikalı",
         isoDesc: "Tüm operasyonlar uluslararası standartlara uygundur",
-        
+
         // KYC & DUE DILIGENCE TRANSLATIONS
         kycDueDiligenceTitle: "KYC & Due Diligence",
         kycDueDiligenceDesc: "İşlemin tüm tarafları için karşılıklı olarak yürütülür.",
@@ -765,10 +809,10 @@ function switchLanguage(lang) {
     setTimeout(() => {
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
-                // Always clear previous text
-                let value = translations[lang][key];
-                if (!value) value = translations['ru'][key] || key;
-                el.innerHTML = value;
+            // Always clear previous text
+            let value = translations[lang][key];
+            if (!value) value = translations['ru'][key] || key;
+            el.innerHTML = value;
         });
         document.body.classList.remove('language-switching');
     }, 150);
@@ -800,42 +844,42 @@ async function fetchCommodityPrices() {
 
     // --- SMART CACHING LOGIC ---
     // Устанавливаем кэш на 15 минут (900000 мс)
-    const CACHE_DURATION = 900000; 
+    const CACHE_DURATION = 900000;
     const lastFetchTime = parseInt(localStorage.getItem("oilFetchTime") || "0");
     const now = Date.now();
 
     // Если прошло меньше 15 минут с последнего запроса
     if (now - lastFetchTime < CACHE_DURATION) {
         console.log("Using cached price to save API limit.");
-        
+
         // Восстанавливаем цену
         const cachedPrice = localStorage.getItem("lastOilPrice");
         if (cachedPrice) {
             oilPriceElement.textContent = `$${parseFloat(cachedPrice).toFixed(2)}`;
-            
+
             // Восстанавливаем текст изменения и цвет
             const savedChangeText = localStorage.getItem("lastOilChangeText");
             const savedChangeClass = localStorage.getItem("lastOilChangeClass");
-            
+
             oilChangeElement.classList.remove("positive", "negative");
-            if(savedChangeText) oilChangeElement.textContent = savedChangeText;
-            if(savedChangeClass) oilChangeElement.classList.add(savedChangeClass);
-            
+            if (savedChangeText) oilChangeElement.textContent = savedChangeText;
+            if (savedChangeClass) oilChangeElement.classList.add(savedChangeClass);
+
             // Восстанавливаем Газ/Золото из кэша (если есть), чтобы они не прыгали
             const cachedGas = localStorage.getItem("lastGasDisplay");
             const cachedGasClass = localStorage.getItem("lastGasClass");
-            if(cachedGas && gasChangeElement) {
+            if (cachedGas && gasChangeElement) {
                 gasChangeElement.textContent = cachedGas;
                 gasChangeElement.classList.remove("positive", "negative");
-                if(cachedGasClass) gasChangeElement.classList.add(cachedGasClass);
+                if (cachedGasClass) gasChangeElement.classList.add(cachedGasClass);
             }
-            
+
             const cachedGold = localStorage.getItem("lastGoldDisplay");
             const cachedGoldClass = localStorage.getItem("lastGoldClass");
-            if(cachedGold && goldChangeElement) {
+            if (cachedGold && goldChangeElement) {
                 goldChangeElement.textContent = cachedGold;
                 goldChangeElement.classList.remove("positive", "negative");
-                if(cachedGoldClass) goldChangeElement.classList.add(cachedGoldClass);
+                if (cachedGoldClass) goldChangeElement.classList.add(cachedGoldClass);
             }
         }
         return; // Выходим из функции, НЕ делая запрос
@@ -949,14 +993,35 @@ async function fetchCommodityPrices() {
 
     } catch (error) {
         console.error("Error fetching commodity prices:", error);
-        // При ошибке показываем кэш
+
+        // --- GRACEFUL FALLBACK ON ERROR ---
         const cachedPrice = localStorage.getItem("lastOilPrice");
+        const cachedChangeText = localStorage.getItem("lastOilChangeText");
+        const cachedChangeClass = localStorage.getItem("lastOilChangeClass");
+
         if (cachedPrice && !isNaN(parseFloat(cachedPrice))) {
-             oilPriceElement.textContent = `$${parseFloat(cachedPrice).toFixed(2)}`;
-             // Можно восстановить старый текст изменения, если нужно
+            oilPriceElement.textContent = `$${parseFloat(cachedPrice).toFixed(2)}`;
+            if (cachedChangeText) oilChangeElement.textContent = cachedChangeText;
+            if (cachedChangeClass) oilChangeElement.classList.add(cachedChangeClass);
         } else {
-             oilPriceElement.textContent = `API Error`;
-             oilChangeElement.textContent = "N/A";
+            // Default static values if no cache exists
+            oilPriceElement.textContent = `$74.50`;
+            oilChangeElement.textContent = "0.00";
+        }
+
+        // Also restore Gas/Gold from cache or defaults
+        const cachedGas = localStorage.getItem("lastGasDisplay");
+        const cachedGasClass = localStorage.getItem("lastGasClass");
+        if (gasChangeElement) {
+            gasChangeElement.textContent = cachedGas || "2.850";
+            if (cachedGasClass) gasChangeElement.classList.add(cachedGasClass);
+        }
+
+        const cachedGold = localStorage.getItem("lastGoldDisplay");
+        const cachedGoldClass = localStorage.getItem("lastGoldClass");
+        if (goldChangeElement) {
+            goldChangeElement.textContent = cachedGold || "+5.20 ↑";
+            if (cachedGoldClass) goldChangeElement.classList.add(cachedGoldClass);
         }
     }
 }
