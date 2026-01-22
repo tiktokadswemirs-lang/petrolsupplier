@@ -828,10 +828,12 @@ let currentLanguage = getInitialLanguage();
 
 
 // ===========================
-// REAL-TIME COMMODITY PRICES (AI AGENT CONNECTION)
+// REAL-TIME COMMODITY PRICES (AI AGENT)
 // ===========================
+// Connects to Yahoo Finance via CORS proxy for real market data
 
-const AGENT_URL = "./proxy.php";
+const CORS_PROXY = "https://api.allorigins.win/raw?url=";
+const YAHOO_API = "https://query1.finance.yahoo.com/v8/finance/chart/";
 
 async function fetchCommodityPrices() {
     const oilPriceElement = document.getElementById("oil-price");
@@ -842,48 +844,61 @@ async function fetchCommodityPrices() {
     if (!oilPriceElement) return;
 
     try {
-        console.log("AI Agent: Connecting to markets..."); // Log for debugging
+        console.log("AI Agent: Connecting to global markets...");
 
-        // 1. Request Real Data from our AI Agent
-        const response = await fetch(AGENT_URL + "?t=" + Date.now()); // Prevent browser caching
+        // Fetch all three commodities in parallel
+        const [oilData, gasData, goldData] = await Promise.all([
+            fetchMarketData("BZ=F"),  // Brent Crude Oil
+            fetchMarketData("NG=F"),  // Natural Gas
+            fetchMarketData("GC=F")   // Gold
+        ]);
 
-        if (!response.ok) {
-            throw new Error(`Agent Connection Error: ${response.status}`);
+        // Update Brent Oil
+        if (oilData && oilData.valid) {
+            oilPriceElement.textContent = `$${oilData.price.toFixed(2)}`;
+            updateChangeIndicator(oilChangeElement, oilData.change, 2, true);
         }
 
-        const data = await response.json();
-
-        // 2. Validate and Update UI (STRICTLY REAL DATA)
-
-        // --- Brent Oil ---
-        if (data.oil && data.oil.valid) {
-            const price = parseFloat(data.oil.price);
-            const change = parseFloat(data.oil.change);
-
-            oilPriceElement.textContent = `$${price.toFixed(2)}`;
-            updateChangeIndicator(oilChangeElement, change, 2, true);
+        // Update Natural Gas
+        if (gasData && gasData.valid) {
+            updateChangeIndicator(gasChangeElement, gasData.change, 3, false, gasData.price);
         }
 
-        // --- Natural Gas ---
-        if (data.gas && data.gas.valid) {
-            const price = parseFloat(data.gas.price);
-            // const change = parseFloat(data.gas.change);
-            // Show Price + Arrow for Gas
-            updateChangeIndicator(gasChangeElement, parseFloat(data.gas.change), 3, false, price);
-        }
-
-        // --- Gold ---
-        if (data.gold && data.gold.valid) {
-            const price = parseFloat(data.gold.price);
-            const change = parseFloat(data.gold.change);
-            // Show Price + Arrow for Gold (user asked: "show if gold increased")
-            updateChangeIndicator(goldChangeElement, change, 1, false, price);
+        // Update Gold (user asked: "show if gold increased")
+        if (goldData && goldData.valid) {
+            updateChangeIndicator(goldChangeElement, goldData.change, 1, false, goldData.price);
         }
 
     } catch (error) {
-        console.error("AI Agent failed to retrieve real data:", error);
-        // Do NOT show random numbers. Leave as loading state or previous state.
-        // This eliminates the "Risk".
+        console.error("AI Agent: Failed to retrieve market data:", error);
+        // Silent fail - keep previous values displayed
+    }
+}
+
+async function fetchMarketData(symbol) {
+    try {
+        const url = `${YAHOO_API}${symbol}?interval=1d&range=1d`;
+        const response = await fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
+
+        if (!response.ok) return null;
+
+        const data = await response.json();
+        const meta = data?.chart?.result?.[0]?.meta;
+
+        if (!meta) return null;
+
+        const price = meta.regularMarketPrice;
+        const prevClose = meta.chartPreviousClose || meta.previousClose;
+        const change = price - prevClose;
+
+        return {
+            price: parseFloat(price),
+            change: parseFloat(change),
+            valid: true
+        };
+    } catch (error) {
+        console.error(`Failed to fetch ${symbol}:`, error);
+        return null;
     }
 }
 
