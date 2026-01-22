@@ -831,8 +831,9 @@ let currentLanguage = getInitialLanguage();
 // REAL-TIME COMMODITY PRICES API
 // ===========================
 
-const OIL_API_KEY = "e2e13101890a6549ff26639002140cd06df6cc50c2884cd1dc4c621dfa893bbd";
+const OIL_API_KEY = "4665f3284a6247ad4cadef870e4bcbe07ab4eee8fb5c27861a4a2f457e7ee269";
 const OIL_API_URL = "https://api.oilpriceapi.com/v1/prices/latest?by_code=brent_crude";
+const PROXY_URL = "https://petrolsupplier.com/proxy.php";
 
 async function fetchCommodityPrices() {
     const oilPriceElement = document.getElementById("oil-price");
