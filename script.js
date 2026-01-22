@@ -830,7 +830,7 @@ let currentLanguage = getInitialLanguage();
 // ===========================
 // REAL-TIME COMMODITY PRICES (AI AGENT)
 // ===========================
-// Connects to Yahoo Finance via CORS proxy for real market data
+// Direct connection to Yahoo Finance via CORS proxy (no PHP needed)
 
 const CORS_PROXY = "https://api.allorigins.win/raw?url=";
 const YAHOO_API = "https://query1.finance.yahoo.com/v8/finance/chart/";
@@ -871,7 +871,6 @@ async function fetchCommodityPrices() {
 
     } catch (error) {
         console.error("AI Agent: Failed to retrieve market data:", error);
-        // Silent fail - keep previous values displayed
     }
 }
 
