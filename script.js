@@ -831,8 +831,6 @@ let currentLanguage = getInitialLanguage();
 // REAL-TIME COMMODITY PRICES API
 // ===========================
 
-const OIL_API_KEY = "4665f3284a6247ad4cadef870e4bcbe07ab4eee8fb5c27861a4a2f457e7ee269";
-const OIL_API_URL = "https://api.oilpriceapi.com/v1/prices/latest?by_code=brent_crude";
 const PROXY_URL = "./proxy.php";
 
 async function fetchCommodityPrices() {
@@ -844,191 +842,164 @@ async function fetchCommodityPrices() {
     if (!oilPriceElement) return;
 
     // --- SMART CACHING LOGIC ---
-    // Устанавливаем кэш на 15 минут (900000 мс)
-    const CACHE_DURATION = 900000;
-    const lastFetchTime = parseInt(localStorage.getItem("oilFetchTime") || "0");
+    // Cache for 5 minutes (300000 ms) to be polite to the "AI Agent"
+    const CACHE_DURATION = 300000;
+    const lastFetchTime = parseInt(localStorage.getItem("marketFetchTime") || "0");
     const now = Date.now();
 
-    // Если прошло меньше 15 минут с последнего запроса
+    // Check if we should use cached data
     if (now - lastFetchTime < CACHE_DURATION) {
-        // Восстанавливаем цену
-        const cachedPrice = localStorage.getItem("lastOilPrice");
-        if (cachedPrice) {
-            oilPriceElement.textContent = `$${parseFloat(cachedPrice).toFixed(2)}`;
-
-            // Восстанавливаем текст изменения и цвет
-            const savedChangeText = localStorage.getItem("lastOilChangeText");
-            const savedChangeClass = localStorage.getItem("lastOilChangeClass");
-
-            oilChangeElement.classList.remove("positive", "negative");
-            if (savedChangeText) oilChangeElement.textContent = savedChangeText;
-            if (savedChangeClass) oilChangeElement.classList.add(savedChangeClass);
-
-            // Восстанавливаем Газ/Золото из кэша (если есть), чтобы они не прыгали
-            const cachedGas = localStorage.getItem("lastGasDisplay");
-            const cachedGasClass = localStorage.getItem("lastGasClass");
-            if (cachedGas && gasChangeElement) {
-                gasChangeElement.textContent = cachedGas;
-                gasChangeElement.classList.remove("positive", "negative");
-                if (cachedGasClass) gasChangeElement.classList.add(cachedGasClass);
-            }
-
-            const cachedGold = localStorage.getItem("lastGoldDisplay");
-            const cachedGoldClass = localStorage.getItem("lastGoldClass");
-            if (cachedGold && goldChangeElement) {
-                goldChangeElement.textContent = cachedGold;
-                goldChangeElement.classList.remove("positive", "negative");
-                if (cachedGoldClass) goldChangeElement.classList.add(cachedGoldClass);
-            }
-        }
-        return; // Выходим из функции, НЕ делая запрос
+        restoreFromCache(oilPriceElement, oilChangeElement, gasChangeElement, goldChangeElement);
+        return;
     }
 
     try {
-        const response = await fetch(OIL_API_URL, {
-            headers: {
-                "Authorization": `Token ${OIL_API_KEY}`,
-                "Content-Type": "application/json"
-            }
-        });
-
-        // ТИХАЯ ОБРАБОТКА ЛИМИТА
-        if (response.status === 429) {
-            // Лимит исчерпан. Просто молчим и не обновляем цену.
-            return;
-        }
+        console.log("Connecting to AI Price Agent...");
+        const response = await fetch(PROXY_URL);
 
         if (!response.ok) {
-            return;
+            throw new Error(`Agent Error: ${response.status}`);
         }
 
         const jsonResponse = await response.json();
-        const rawPrice = jsonResponse?.data?.price;
 
-        if (typeof rawPrice === 'undefined' || rawPrice === null) {
-            return;
+        if (jsonResponse.status === 'error' && !jsonResponse.data) {
+            throw new Error("AI Agent reported failure");
         }
 
-        const newOilPrice = parseFloat(rawPrice);
+        const data = jsonResponse.data;
 
-        if (isNaN(newOilPrice)) {
-            return;
+        // Process OIL (BRENT)
+        if (data.oil) {
+            updateTickerItem(oilPriceElement, oilChangeElement, data.oil, '$', 2);
+            saveToCache("Oil", data.oil);
         }
 
-        const lastPrice = parseFloat(localStorage.getItem("lastOilPrice")) || newOilPrice;
-        const change = newOilPrice - lastPrice;
-
-        // UI: Цена нефти
-        oilPriceElement.textContent = `$${newOilPrice.toFixed(2)}`;
-
-        // UI: Изменение нефти
-        oilChangeElement.classList.remove("positive", "negative");
-        const changeText = Math.abs(change).toFixed(2);
-        let oilChangeStr = "0.00";
-        let oilChangeClass = "";
-
-        if (change > 0.01) {
-            oilChangeClass = "positive";
-            oilChangeElement.classList.add("positive");
-            oilChangeStr = `+${changeText} ↑`;
-        } else if (change < -0.01) {
-            oilChangeClass = "negative";
-            oilChangeElement.classList.add("negative");
-            oilChangeStr = `-${changeText} ↓`;
+        // Process GAS
+        if (data.gas) {
+            // Natural gas usually has 3 decimal places
+            updateGasTicker(gasChangeElement, data.gas);
+            saveToCache("Gas", data.gas);
         }
-        oilChangeElement.textContent = oilChangeStr;
 
-        // Сохраняем данные нефти и ВРЕМЯ ЗАПРОСА
-        localStorage.setItem("oilFetchTime", now.toString());
-        localStorage.setItem("lastOilPrice", newOilPrice.toFixed(4));
-        localStorage.setItem("lastOilChangeText", oilChangeStr);
-        localStorage.setItem("lastOilChangeClass", oilChangeClass);
-
-        // --- Имитация данных для газа и золота (обновляем только при запросе нефти) ---
-        const lastGasPrice = parseFloat(localStorage.getItem("lastGasPrice")) || 2.85;
-        const lastGoldPrice = parseFloat(localStorage.getItem("lastGoldPrice")) || 2045.30;
-
-        const gasChange = (Math.random() - 0.5) * 0.15;
-        const goldChange = (Math.random() - 0.5) * 15;
-
-        let newGasPrice = lastGasPrice + gasChange;
-        let newGoldPrice = lastGoldPrice + goldChange;
-
-        newGasPrice = Math.max(2.5, Math.min(3.5, newGasPrice));
-        newGoldPrice = Math.max(2000, Math.min(2100, newGoldPrice));
-
-        // UI: Газ
-        gasChangeElement.classList.remove("positive", "negative");
-        let gasStr = "";
-        let gasClass = "";
-        if (gasChange > 0.01) {
-            gasClass = "positive";
-            gasChangeElement.classList.add("positive");
-            gasStr = `+${gasChange.toFixed(3)} ↑`;
-        } else if (gasChange < -0.01) {
-            gasClass = "negative";
-            gasChangeElement.classList.add("negative");
-            gasStr = `${gasChange.toFixed(3)} ↓`;
-        } else {
-            gasStr = `${gasChange.toFixed(3)}`;
+        // Process GOLD
+        if (data.gold) {
+            updateGoldTicker(goldChangeElement, data.gold);
+            saveToCache("Gold", data.gold);
         }
-        gasChangeElement.textContent = gasStr;
 
-        // UI: Золото
-        goldChangeElement.classList.remove("positive", "negative");
-        let goldStr = "";
-        let goldClass = "";
-        if (goldChange > 1) {
-            goldClass = "positive";
-            goldChangeElement.classList.add("positive");
-            goldStr = `+${goldChange.toFixed(2)} ↑`;
-        } else if (goldChange < -1) {
-            goldClass = "negative";
-            goldChangeElement.classList.add("negative");
-            goldStr = `${goldChange.toFixed(2)} ↓`;
-        } else {
-            goldStr = `${goldChange.toFixed(2)}`;
-        }
-        goldChangeElement.textContent = goldStr;
-
-        // Сохраняем имитированные данные
-        localStorage.setItem("lastGasPrice", newGasPrice.toFixed(4));
-        localStorage.setItem("lastGoldPrice", newGoldPrice.toFixed(4));
-        // Сохраняем визуальное состояние для кэша
-        localStorage.setItem("lastGasDisplay", gasStr);
-        localStorage.setItem("lastGasClass", gasClass);
-        localStorage.setItem("lastGoldDisplay", goldStr);
-        localStorage.setItem("lastGoldClass", goldClass);
+        // Update timestamp
+        localStorage.setItem("marketFetchTime", now.toString());
 
     } catch (error) {
-        // --- GRACEFUL FALLBACK ON ERROR ---
-        const cachedPrice = localStorage.getItem("lastOilPrice");
-        const cachedChangeText = localStorage.getItem("lastOilChangeText");
-        const cachedChangeClass = localStorage.getItem("lastOilChangeClass");
+        console.error("AI Agent Connection Failed:", error);
+        restoreFromCache(oilPriceElement, oilChangeElement, gasChangeElement, goldChangeElement);
+    }
+}
 
-        if (cachedPrice && !isNaN(parseFloat(cachedPrice))) {
-            oilPriceElement.textContent = `$${parseFloat(cachedPrice).toFixed(2)}`;
-            if (cachedChangeText) oilChangeElement.textContent = cachedChangeText;
-            if (cachedChangeClass) oilChangeElement.classList.add(cachedChangeClass);
-        } else {
-            // Default static values if no cache exists
-            oilPriceElement.textContent = `$74.50`;
-            oilChangeElement.textContent = "0.00";
-        }
+// Helper: Update Generic Ticker (Oil)
+function updateTickerItem(priceEl, changeEl, data, prefix, decimals) {
+    const price = parseFloat(data.price);
+    const change = parseFloat(data.change);
 
-        // Restore Gas/Gold logic...
-        const cachedGas = localStorage.getItem("lastGasDisplay");
-        const cachedGasClass = localStorage.getItem("lastGasClass");
-        if (gasChangeElement && cachedGas) {
-            gasChangeElement.textContent = cachedGas;
-            if (cachedGasClass) gasChangeElement.classList.add(cachedGasClass);
-        }
-        const cachedGold = localStorage.getItem("lastGoldDisplay");
-        const cachedGoldClass = localStorage.getItem("lastGoldClass");
-        if (goldChangeElement && cachedGold) {
-            goldChangeElement.textContent = cachedGold;
-            if (cachedGoldClass) goldChangeElement.classList.add(cachedGoldClass);
-        }
+    if (isNaN(price)) return;
+
+    priceEl.textContent = `${prefix}${price.toFixed(decimals)}`;
+
+    changeEl.classList.remove("positive", "negative");
+    const changeText = Math.abs(change).toFixed(decimals);
+
+    if (change > 0) {
+        changeEl.classList.add("positive");
+        changeEl.textContent = `+${changeText} ↑`;
+    } else if (change < 0) {
+        changeEl.classList.add("negative");
+        changeEl.textContent = `-${changeText} ↓`;
+    } else {
+        changeEl.textContent = `${changeText}`;
+    }
+}
+
+// Helper: Update Gas (Change only shown in UI)
+function updateGasTicker(changeEl, data) {
+    // Gas widget structure seems to only have a change element visible in the snippet ??
+    // Looking at HTML: <span class="widget-label">NATURAL GAS</span> <span class="widget-change" id="gas-change">...</span>
+    // There is no separate price element for Gas in the HTML provided in previous turns.
+    // So we usually display the PRICE in the 'change' slot or the change?
+    // The previous code displayed: `+0.045 ↑` which looks like change. 
+    // BUT the simulation code did: `newGasPrice = ...` then `gasChangeElement.textContent = gasStr`.
+    // Wait, let's look at previous simulation:
+    // `gasStr = +0.123 ↑` (change)
+    // Actually, usually users want to see the PRICE.
+    // Let's display Price + Arrow if space permits, or just Price.
+
+    // In the previous code: `gasChangeElement` showed the CHANGE relative to a simulated price.
+    // Let's show the PRICE primarily, or Price (Change).
+    // Given the small space, let's stick to the previous pattern: Change amount.
+    // OR BETTER: Show the Current PRICE with an arrow matching the trend.
+    // The previous code was definitely showing CHANGE: `gasStr = +${gasChange.toFixed(3)} ↑`
+
+    const price = parseFloat(data.price);
+    const change = parseFloat(data.change);
+
+    changeEl.classList.remove("positive", "negative");
+
+    // Let's try to show "Price" instead?
+    // "NATURAL GAS 2.500" looks better than "NATURAL GAS +0.001".
+    // But the ID is `gas-change`.
+    // Let's stick to showing the value that moves.
+    // Actually, let's show: "$2.85 ↑" (Price + Trend)
+
+    const arrow = change >= 0 ? "↑" : "↓";
+    const directionClass = change >= 0 ? "positive" : "negative";
+
+    changeEl.textContent = `${price.toFixed(3)} ${arrow}`;
+    changeEl.classList.add(directionClass);
+}
+
+// Helper: Update Gold
+function updateGoldTicker(changeEl, data) {
+    const price = parseFloat(data.price);
+    const change = parseFloat(data.change);
+
+    changeEl.classList.remove("positive", "negative");
+
+    const arrow = change >= 0 ? "↑" : "↓";
+    const directionClass = change >= 0 ? "positive" : "negative";
+
+    changeEl.textContent = `${price.toFixed(1)} ${arrow}`;
+    changeEl.classList.add(directionClass);
+}
+
+function saveToCache(type, data) {
+    localStorage.setItem(`cached${type}Price`, data.price);
+    localStorage.setItem(`cached${type}Change`, data.change);
+}
+
+function restoreFromCache(oilPriceEl, oilChangeEl, gasChangeEl, goldChangeEl) {
+    // Restore Oil
+    const oilPrice = localStorage.getItem("cachedOilPrice");
+    const oilChange = localStorage.getItem("cachedOilChange");
+    if (oilPrice) {
+        updateTickerItem(oilPriceEl, oilChangeEl, { price: oilPrice, change: oilChange || 0 }, '$', 2);
+    } else {
+        // Fallback static
+        oilPriceEl.textContent = "$74.50";
+        oilChangeEl.textContent = "0.00";
+    }
+
+    // Restore Gas
+    const gasPrice = localStorage.getItem("cachedGasPrice");
+    const gasChange = localStorage.getItem("cachedGasChange");
+    if (gasPrice && gasChangeEl) {
+        updateGasTicker(gasChangeEl, { price: gasPrice, change: gasChange || 0 });
+    }
+
+    // Restore Gold
+    const goldPrice = localStorage.getItem("cachedGoldPrice");
+    const goldChange = localStorage.getItem("cachedGoldChange");
+    if (goldPrice && goldChangeEl) {
+        updateGoldTicker(goldChangeEl, { price: goldPrice, change: goldChange || 0 });
     }
 }
 
