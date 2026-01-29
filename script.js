@@ -354,6 +354,18 @@ const translations = {
         email: "Электронная почта",
         phone: "Телефон",
 
+        // LEGAL & DISCLOSURE
+        legal: "Legal & Disclosure",
+        legalTitle: "Legal & Disclosure",
+        legalEntity: "Юридическое лицо:",
+        legalEntityValue: "Индивидуальное предприятие \"Bash Emir\"",
+        legalJurisdiction: "Юрисдикция:",
+        legalJurisdictionValue: "Туркменистан",
+        legalActivity: "Бизнес-деятельность:",
+        legalActivityValue: "Брокерские услуги и содействие в торговле",
+        legalRole: "Роль:",
+        legalRoleValue: "Только посредник (не продавец, не покупатель)",
+
         // FOOTER
         productsFooter: "Продукты",
         logisticsFooter: "Логистика",
@@ -569,6 +581,18 @@ const translations = {
         email: "Email",
         phone: "Phone",
 
+        // LEGAL & DISCLOSURE
+        legal: "Legal & Disclosure",
+        legalTitle: "Legal & Disclosure",
+        legalEntity: "Legal Entity:",
+        legalEntityValue: "Individual Enterprise \"Bash Emir\"",
+        legalJurisdiction: "Jurisdiction:",
+        legalJurisdictionValue: "Turkmenistan",
+        legalActivity: "Business Activity:",
+        legalActivityValue: "Brokerage & trade facilitation services",
+        legalRole: "Role:",
+        legalRoleValue: "Intermediary only (non-seller, non-buyer)",
+
         productsFooter: "Products",
         logisticsFooter: "Logistics",
         contactsFooter: "Contacts",
@@ -781,6 +805,18 @@ const translations = {
         contactDescription: "Yöneticilerimiz talebinizi inceleyecek ve en kısa sürede sizinle iletişime geçecektir.",
         email: "E-posta",
         phone: "Telefon",
+
+        // LEGAL & DISCLOSURE
+        legal: "Legal & Disclosure",
+        legalTitle: "Legal & Disclosure",
+        legalEntity: "Tüzel Kişilik:",
+        legalEntityValue: "Bireysel İşletme \"Bash Emir\"",
+        legalJurisdiction: "Yetki Alanı:",
+        legalJurisdictionValue: "Türkmenistan",
+        legalActivity: "İş Faaliyeti:",
+        legalActivityValue: "Aracılık ve ticaret kolaylaştırma hizmetleri",
+        legalRole: "Rol:",
+        legalRoleValue: "Yalnızca aracı (satıcı değil, alıcı değil)",
 
         productsFooter: "Ürünler",
         logisticsFooter: "Lojistik",
