@@ -1,4 +1,21 @@
 // ===========================
+// PERFORMANCE UTILITY FUNCTIONS
+// ===========================
+
+// Throttle function to limit event firing frequency
+function throttle(func, delay) {
+    let lastCall = 0;
+    return function (...args) {
+        const now = new Date().getTime();
+        if (now - lastCall < delay) {
+            return;
+        }
+        lastCall = now;
+        return func(...args);
+    };
+}
+
+// ===========================
 // ANIMATION ON SCROLL FOR ALL SECTIONS
 // ===========================
 
@@ -9,15 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
         { selector: '.animate-slide-right', anim: 'animate-slide-right' },
         { selector: '.broker-card', anim: 'animate-slide-up' },
         { selector: '.partner-card', anim: 'animate-slide-up' },
-        { selector: '.step-card', anim: 'animate-slide-up' },
         { selector: '.global-highlight', anim: 'animate-slide-left' },
         { selector: '.logistics-column', anim: 'animate-slide-right' },
         { selector: '.contact-grid', anim: 'animate-slide-up' },
         { selector: '.section-text', anim: 'animate-slide-left' },
         { selector: '.hero-content', anim: 'animate-slide-up' },
         { selector: '.catalog-section ul', anim: 'animate-slide-up' },
-        { selector: '.direction-card', anim: 'animate-slide-up' },
-        { selector: '.quality-box', anim: 'animate-slide-up' },
         { selector: '.info-item', anim: 'animate-slide-up' }
     ];
 
@@ -89,7 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    window.addEventListener("scroll", updateActiveNavLink);
+    // Use throttled version for better performance
+    const throttledUpdateNav = throttle(updateActiveNavLink, 100);
+    window.addEventListener("scroll", throttledUpdateNav, { passive: true });
     updateActiveNavLink(); // Run on load
 });
 // (Удалено: дублирующий код анимации для about-section)

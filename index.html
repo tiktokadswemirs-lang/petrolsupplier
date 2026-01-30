@@ -8,6 +8,11 @@
     <meta property="og:description" content="Bash Emir - Independent broker in international trade of petroleum products.">
     <title>Bash Emir - International brokerage and consultancy for oil and oil products</title>
     <link rel="canonical" href="https://www.petrolsupplier.com/">
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css"> 
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/photos/favicon.png?v=1.0">
@@ -39,7 +44,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="/assets/photos/logo.png" alt="BASH EMIR Logo" class="logo-img">
+                    <img src="/assets/photos/logo.png" alt="BASH EMIR Logo" class="logo-img" loading="lazy" decoding="async">
                     <span class="logo-text">Баш Эмир</span>
                 </div>
 
@@ -55,12 +60,7 @@
                 </nav>
 
                 <div class="header-controls">
-                    <button class="search-btn" onclick="toggleSearch()">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                            <circle cx="8" cy="8" r="6"></circle>
-                            <path d="M12 12l4 4"></path>
-                        </svg>
-                    </button>
+                    
                     <div class="lang-switcher">
                         <button class="lang-btn active" data-lang="ru" onclick="switchLanguage('ru')">RU</button>
                         <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
@@ -87,7 +87,7 @@
     </header>
 
     <section class="hero">
-        <video autoplay muted loop playsinline preload="auto" id="hero-video">
+        <video autoplay muted loop playsinline preload="metadata" id="hero-video" poster="/assets/photos/logo.png">
             <source src="/assets/videos/1111.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео тег.
         </video>
@@ -148,7 +148,7 @@
                 </div>
                 <div class="about-logo animate-slide-right">
                     <div class="logo-large-horizontal">
-                        <img src="/assets/photos/logo.png" alt="BASH EMIR Logo" class="logo-img-large-horizontal">
+                        <img src="/assets/photos/logo.png" alt="BASH EMIR Logo" class="logo-img-large-horizontal" loading="lazy" decoding="async">
                         <p class="logo-text-horizontal">BASH EMIR</p>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
 
                     <p data-translate="railTitle">Роль брокера в реальной товарной сделке - это процедурный, документарный и комплаенс-контроль.</p>
                     <br>
-                    <h4 data-translate="seaTitle">Мы Обеспечиваем:</h4>
+                    <h3 data-translate="seaTitle">Мы Обеспечиваем:</h3>
                     <ul>
                         <li data-translate="deliveryTerms">Корректную и логичную последовательность сделки</li>
                         <li data-translate="railTerms">Фильтрацию фиктивных продавцов и покупателей</li>
@@ -183,7 +183,7 @@
                         <li data-translate="brokercomissi"><strong>IMFPA</strong> - Порядок, условия и сроки выплаты брокерской комиссии</li>
                     </ul>
                     <br>
-                    <h4 data-translate="comissibrokera">Комиссия Брокера:</h4>
+                    <h3 data-translate="comissibrokera">Комиссия Брокера:</h3>
                     <ul>
                         <li data-translate="stoimosttovara">Не включается в стоимость товара</li>
                         <li data-translate="faktsdelki">Выплачивается исключительно после фактического исполнения сделки</li>
@@ -192,7 +192,7 @@
                 </div>
 
                 <div style="flex: 0 0 320px; max-width: 320px; text-align: center; margin-bottom: 24px;">
-                    <img src="assets/photos/partnership.png" alt="Partnership" style="width: 100%; max-width: 320px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); margin-top: 10px;" />
+                    <img src="assets/photos/partnership.png" alt="Partnership" style="width: 100%; max-width: 320px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); margin-top: 10px;" loading="lazy" decoding="async" />
                 </div>
 
             </div>
@@ -505,7 +505,6 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
