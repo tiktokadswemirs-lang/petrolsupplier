@@ -116,8 +116,13 @@ document.addEventListener("DOMContentLoaded", function () {
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById("mobileMenu");
     const menuBtn = document.querySelector(".mobile-menu-btn");
+    const isExpanded = mobileMenu.classList.contains("active");
+
     mobileMenu.classList.toggle("active");
     menuBtn.classList.toggle("active");
+
+    // Update ARIA attribute for accessibility
+    menuBtn.setAttribute("aria-expanded", !isExpanded);
 }
 
 document.addEventListener("click", function (event) {
@@ -127,6 +132,7 @@ document.addEventListener("click", function (event) {
     if (!header.contains(event.target) && mobileMenu.classList.contains("active")) {
         mobileMenu.classList.remove("active");
         menuBtn.classList.remove("active");
+        menuBtn.setAttribute("aria-expanded", "false");
     }
 });
 
@@ -142,6 +148,7 @@ function scrollToSection(sectionId) {
         const menuBtn = document.querySelector(".mobile-menu-btn");
         mobileMenu.classList.remove("active");
         menuBtn.classList.remove("active");
+        menuBtn.setAttribute("aria-expanded", "false");
     }
 }
 

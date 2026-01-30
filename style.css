@@ -55,6 +55,24 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Accessibility - Skip to content link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-color);
+    color: var(--bg-primary);
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 1001;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;

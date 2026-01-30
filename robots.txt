@@ -3,3 +3,6 @@ Allow: /
 Allow: /assets/
 Allow: /assets/videos/
 Disallow: /proxy.php
+
+# Sitemap location
+Sitemap: https://www.petrolsupplier.com/sitemap.xml

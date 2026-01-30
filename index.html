@@ -3,11 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bash Emir - Independent broker in international trade of petroleum products.">
-	<meta property="og:title" content="Bash Emir - Independent broker in international trade of petroleum products.">
-    <meta property="og:description" content="Bash Emir - Independent broker in international trade of petroleum products.">
+    
+    <!-- Enhanced SEO -->
+    <meta name="description" content="Bash Emir - Independent international broker for petroleum products. We provide transparent brokerage services for EN590, Jet Fuel, D2, D6, Bitumen with KYC compliance and ICC standards.">
+    <meta name="keywords" content="petroleum broker, oil trading, EN590, jet fuel, bitumen, international trade, commodity trading, Turkmenistan, brokerage services">
+    <meta name="author" content="Bash Emir">
+    <meta name="theme-color" content="#0d1419">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <!-- Enhanced Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.petrolsupplier.com/">
+    <meta property="og:title" content="Bash Emir - Independent broker in international trade of petroleum products">
+    <meta property="og:description" content="Bash Emir - Independent international broker for petroleum products. We provide transparent brokerage services for EN590, Jet Fuel, D2, D6, Bitumen with KYC compliance and ICC standards.">
+    <meta property="og:image" content="https://www.petrolsupplier.com/assets/photos/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
     <title>Bash Emir - International brokerage and consultancy for oil and oil products</title>
     <link rel="canonical" href="https://www.petrolsupplier.com/">
+    
+    <!-- Multilingual Support -->
+    <link rel="alternate" hreflang="ru" href="https://www.petrolsupplier.com/">
+    <link rel="alternate" hreflang="en" href="https://www.petrolsupplier.com/?lang=en">
+    <link rel="alternate" hreflang="tr" href="https://www.petrolsupplier.com/?lang=tr">
+    <link rel="alternate" hreflang="x-default" href="https://www.petrolsupplier.com/">
     
     <!-- Resource Hints for Performance -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -19,6 +39,30 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/photos/favicon.png?v=1.0">
     <link rel="shortcut icon" type="image/png" href="/assets/photos/favicon.png?v=1.0">
     <link rel="apple-touch-icon" href="/assets/photos/logo.png">
+    
+    <!-- Structured Data Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Bash Emir",
+      "description": "Independent broker in international trade of petroleum products",
+      "url": "https://www.petrolsupplier.com",
+      "logo": "https://www.petrolsupplier.com/assets/photos/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+993-65-616173",
+        "contactType": "Customer Service",
+        "email": "bashemir@petrolsupplier.com",
+        "availableLanguage": ["Russian", "English", "Turkish"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ashgabat",
+        "addressCountry": "TM"
+      }
+    }
+    </script>
     
     <script type="application/ld+json">
     {
@@ -40,15 +84,18 @@
     </script>
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="/assets/photos/logo.png" alt="BASH EMIR Logo" class="logo-img" loading="lazy" decoding="async">
+                    <img src="/assets/photos/logo.png" alt="Bash Emir Logo - International Petroleum Broker" class="logo-img" loading="lazy" decoding="async">
                     <span class="logo-text">Баш Эмир</span>
                 </div>
 
-                <nav class="nav-desktop">
+                <nav class="nav-desktop" aria-label="Main navigation">
                     <button class="nav-link" data-translate="about" onclick="scrollToSection('about')">О Нас</button>
                     <button class="nav-link" data-translate="directions" onclick="scrollToSection('directions')">Роль Брокера</button>
                     <button class="nav-link" data-translate="catalog" onclick="scrollToSection('catalog')">Мы сопровождаем сделки со следующими продуктами</button>
@@ -60,18 +107,17 @@
                 </nav>
 
                 <div class="header-controls">
-                    
-                    <div class="lang-switcher">
-                        <button class="lang-btn active" data-lang="ru" onclick="switchLanguage('ru')">RU</button>
-                        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
-                        <button class="lang-btn" data-lang="tr" onclick="switchLanguage('tr')">TR</button>
+                    <div class="lang-switcher" role="group" aria-label="Language selector">
+                        <button class="lang-btn active" data-lang="ru" onclick="switchLanguage('ru')" lang="ru" aria-label="Switch to Russian">RU</button>
+                        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')" lang="en" aria-label="Switch to English">EN</button>
+                        <button class="lang-btn" data-lang="tr" onclick="switchLanguage('tr')" lang="tr" aria-label="Switch to Turkish">TR</button>
                     </div>
-                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobileMenu">
                         <span></span><span></span><span></span>
                     </button>
                 </div>
             </div>
-            <nav class="mobile-menu" id="mobileMenu">
+            <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
 
                 <button class="nav-link" data-translate="about" onclick="scrollToSection('about'); toggleMobileMenu()">О Нас</button>
                 <button class="nav-link" data-translate="directions" onclick="scrollToSection('directions'); toggleMobileMenu()">Роль Брокера</button>
@@ -86,7 +132,7 @@
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="main-content">
         <video autoplay muted loop playsinline preload="metadata" id="hero-video" poster="/assets/photos/logo.png">
             <source src="/assets/videos/1111.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео тег.
