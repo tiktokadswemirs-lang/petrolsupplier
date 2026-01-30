@@ -400,6 +400,10 @@ const translations = {
         bankCityValue: "Ашгабат",
         bankCountry: "Страна:",
         bankCountryValue: "Туркменистан",
+        registrationNumber: "Регистрационный номер:",
+        registrationNumberValue: "24610563",
+        registrationDate: "Дата регистрации:",
+        registrationDateValue: "22.12.2020",
 
         // FOOTER
         productsFooter: "Продукты",
@@ -639,6 +643,10 @@ const translations = {
         bankCityValue: "Ashgabat",
         bankCountry: "Country:",
         bankCountryValue: "Turkmenistan",
+        registrationNumber: "Registration Number:",
+        registrationNumberValue: "24610563",
+        registrationDate: "Registration Date:",
+        registrationDateValue: "22.12.2020",
 
         productsFooter: "Products",
         logisticsFooter: "Logistics",
@@ -876,6 +884,10 @@ const translations = {
         bankCityValue: "Aşkabat",
         bankCountry: "Ulke:",
         bankCountryValue: "Türkmenistan",
+        registrationNumber: "Registration Number:",
+        registrationNumberValue: "24610563",
+        registrationDate: "Registration Date:",
+        registrationDateValue: "22.12.2020",
 
         productsFooter: "Ürünler",
         logisticsFooter: "Lojistik",
