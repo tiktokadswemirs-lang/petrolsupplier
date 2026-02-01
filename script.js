@@ -163,6 +163,7 @@ function scrollToSection(sectionId) {
 const translations = {
 
     ru: {
+        logoText: "Баш Эмир",
         // HEADER / NAV
         about: "О Нас",
         directions: "Роль Брокера",
@@ -414,6 +415,7 @@ const translations = {
 
 
     en: {
+        logoText: "BASH EMIR",
         about: "About Us",
         directions: "Broker Role",
         catalog: "We accompany transactions with the following products",
@@ -656,6 +658,7 @@ const translations = {
 
 
     tr: {
+        logoText: "BASH EMIR",
         about: "Hakkımızda",
         directions: "Broker Rolü",
         catalog: "Aşağıdaki ürünlerle işlemlere eşlik ediyoruz",
