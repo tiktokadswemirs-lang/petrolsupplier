@@ -937,102 +937,7 @@ function switchLanguage(lang) {
 let currentLanguage = getInitialLanguage();
 
 
-// ===========================
-// REAL-TIME COMMODITY PRICES (AI AGENT)
-// ===========================
-// Connects to Yahoo Finance via CORS proxy for real market data
 
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-const YAHOO_API = "https://query1.finance.yahoo.com/v8/finance/chart/";
-
-async function fetchCommodityPrices() {
-    const oilPriceElement = document.getElementById("oil-price");
-    const oilChangeElement = document.getElementById("oil-change");
-    const gasChangeElement = document.getElementById("gas-change");
-    const goldChangeElement = document.getElementById("gold-change");
-
-    if (!oilPriceElement) return;
-
-    try {
-        console.log("AI Agent: Connecting to global markets...");
-
-        // Fetch all three commodities in parallel
-        const [oilData, gasData, goldData] = await Promise.all([
-            fetchMarketData("BZ=F"),  // Brent Crude Oil
-            fetchMarketData("NG=F"),  // Natural Gas
-            fetchMarketData("GC=F")   // Gold
-        ]);
-
-        // Update Brent Oil
-        if (oilData && oilData.valid) {
-            oilPriceElement.textContent = `$${oilData.price.toFixed(2)}`;
-            updateChangeIndicator(oilChangeElement, oilData.change, 2, true);
-        }
-
-        // Update Natural Gas
-        if (gasData && gasData.valid) {
-            updateChangeIndicator(gasChangeElement, gasData.change, 3, false, gasData.price);
-        }
-
-        // Update Gold (user asked: "show if gold increased")
-        if (goldData && goldData.valid) {
-            updateChangeIndicator(goldChangeElement, goldData.change, 1, false, goldData.price);
-        }
-
-    } catch (error) {
-        console.error("AI Agent: Failed to retrieve market data:", error);
-        // Silent fail - keep previous values displayed
-    }
-}
-
-async function fetchMarketData(symbol) {
-    try {
-        const url = `${YAHOO_API}${symbol}?interval=1d&range=1d`;
-        const response = await fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
-
-        if (!response.ok) return null;
-
-        const data = await response.json();
-        const meta = data?.chart?.result?.[0]?.meta;
-
-        if (!meta) return null;
-
-        const price = meta.regularMarketPrice;
-        const prevClose = meta.chartPreviousClose || meta.previousClose;
-        const change = price - prevClose;
-
-        return {
-            price: parseFloat(price),
-            change: parseFloat(change),
-            valid: true
-        };
-    } catch (error) {
-        console.error(`Failed to fetch ${symbol}:`, error);
-        return null;
-    }
-}
-
-// Helper to format the change/price display
-function updateChangeIndicator(element, change, decimals, isMainPrice, currentPrice = 0) {
-    if (!element) return;
-
-    element.classList.remove("positive", "negative");
-
-    const absChange = Math.abs(change).toFixed(decimals);
-    const arrow = change >= 0 ? "↑" : "↓";
-    const cssClass = change >= 0 ? "positive" : "negative";
-
-    element.classList.add(cssClass);
-
-    if (isMainPrice) {
-        // Format: "+1.20 ↑"
-        element.textContent = `${change >= 0 ? '+' : '-'}${absChange} ${arrow}`;
-    } else {
-        // Format: "2045.50 ↑" (Shows Price + Direction)
-        // User asked "show if gold increased", so arrow is key.
-        element.textContent = `${currentPrice.toFixed(decimals)} ${arrow}`;
-    }
-}
 
 // ===========================
 // INIT
@@ -1041,8 +946,6 @@ function updateChangeIndicator(element, change, decimals, isMainPrice, currentPr
 document.addEventListener("DOMContentLoaded", function () {
     switchLanguage(currentLanguage);
 
-    fetchCommodityPrices();
-    // Refresh real data every 2 minutes
-    setInterval(fetchCommodityPrices, 120000);
+
 });
 
